@@ -12,7 +12,16 @@ set colorcolumn=80
 set cursorline
 
 " Gruvbox theme
-autocmd vimenter * ++nested colorscheme gruvbox
+colorscheme gruvbox
+
+" Trailing spaces highlight
+set hlsearch
+highlight ExtraWhitespace ctermbg=160 guibg=#fb4934
+match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
 
 " IndentLine pluggin settings
 let g:indentLine_char = '┆'
