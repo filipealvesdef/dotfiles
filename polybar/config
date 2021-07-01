@@ -60,7 +60,7 @@ font-4 = "Font Awesome 5 Free:style=Regular:pixelsize=10;2"
 font-5 = "Font Awesome 5 Brands Regular:pixelsize=14;2"
 font-6 = "FuraCode Nerd Font:pixelsize=16;2"
 font-7 = "FuraCode Nerd Font:pixelsize=12;2"
-font-8 = Hack:style=Solid:pixelsize=10;2
+font-8 = Hack:style=Solid:pixelsize=9;2
 
 modules-left = menu i3
 ;modules-center = mpd
@@ -81,7 +81,7 @@ click-left = rofi run -show drun
 
 [module/xwindow]
 type = internal/xwindow
-label = %{T3}%title%
+label = %{T9}%title%
 
 [module/weather]
 type = custom/script
