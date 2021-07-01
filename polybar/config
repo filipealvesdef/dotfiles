@@ -52,8 +52,8 @@ background = ${colors.background}
 foreground = ${colors.dark_green}
 
 line-size = 1
-font-0 = Hack:pixelsize=12;3
-font-1 = Hack:pixelsize=10;2
+font-0 = "FuraCode Nerd Font:pixelsize=12;2"
+font-1 = Weather Icons:size=12;2
 font-2 = "Font Awesome 5 Free:style=Solid:pixelsize=10;2"
 font-3 = "Font Awesome 5 Free:style=Solid:pixelsize=12;2"
 font-4 = "Font Awesome 5 Free:style=Regular:pixelsize=10;2"
@@ -65,7 +65,7 @@ font-8 = Hack:style=Solid:pixelsize=10;2
 modules-left = menu i3
 ;modules-center = mpd
 modules-center = xwindow
-modules-right = pulseaudio date
+modules-right = pulseaudio weather date
 
 tray-position = right
 tray-padding = 2
@@ -80,6 +80,14 @@ content = "  %{T8}  "
 [module/xwindow]
 type = internal/xwindow
 label = %{T3}%title%
+
+[module/weather]
+type = custom/script
+exec = /usr/bin/polybar-forecast
+exec-if = ping openweathermap.org -c 1
+interval = 600
+label-font = 2
+label-margin-left = 3
 
 [module/xkeyboard]
 type = internal/xkeyboard
