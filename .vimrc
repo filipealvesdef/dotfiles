@@ -14,6 +14,9 @@ set cursorline
 " Gruvbox theme
 colorscheme gruvbox
 
+" Enabling transparent background
+hi Normal guibg=NONE ctermbg=NONE
+
 " Trailing spaces highlight
 set hlsearch
 highlight ExtraWhitespace ctermbg=160 guibg=#fb4934
