@@ -1,0 +1,78 @@
+configuration {
+  display-drun: "Applications:";
+  show-icons: true;
+  drun-display-format: "{icon} {name}";
+}
+
+* {
+  font: "Fira Code Medium 13";
+  icon-font: "Fira Code Medium 18";
+  /* padding: 3px 5px; */
+  background-color: #3c3836e3;
+  foreground: #a89984;
+  window-bordercolor: #665c54;
+  color: @foreground;
+  separator-color: @window-bordercolor;
+}
+
+window {
+  background-color: @background-color;
+  transparency: "real";
+  height: 33%;
+  width: 20%;
+  border-color: @window-bordercolor;
+  border: 1;
+  border-radius: 7px;
+}
+
+mainbox {
+  background-color: transparent;
+  padding: 30px 30px 30px 30px;
+}
+
+inputbar {
+  background-color: transparent;
+  padding: 5px 10px 25px 10px;
+}
+
+prompt {
+  background-color: transparent;
+  text-color: #FFFFFF;
+  padding: 0px 10px 0px 0px;
+}
+
+entry {
+  background-color: transparent;
+  text-color: #FFFFFF;
+}
+
+listview {
+  background-color: transparent;
+  padding: 0px 5px 0px 5px;
+  spacing: 0.2em;
+  columns: 1;
+}
+
+element {
+  background-color: transparent;
+  padding: 10px 10px 10px 20px;
+}
+
+element-icon {
+  size: 43px;
+  border: 0px;
+}
+
+element-text {
+  expand: true;
+  vertical-align: 0.5;
+}
+
+element selected {
+  border-radius: 3px;
+  color: #ebdbb2;
+  background-color: #665c5499;
+  border-color: #7c6f64;
+}
+
+/* vim: ft=css
