@@ -18,7 +18,7 @@
 
 [colors]
 background = #88282828
-background-alt = #444
+background-transparent = #00000000
 foreground = #dfdfdf
 foreground-alt = #555
 primary = #ffb52a
@@ -29,6 +29,21 @@ red = #fb4934
 dark_green = #ebdbb2
 light_green = #b8bb26
 
+[bar/bottom]
+width = 100%
+height = 22
+fixed-center = true
+background = ${colors.background-transparent}
+foreground = ${colors.dark_green}
+bottom = true
+
+font-0 = Hack:pixelsize=10;2
+font-1 = "Font Awesome 5 Free:style=Solid:pixelsize=10;2"
+modules-center = eth filesystem memory cpu
+
+border-bottom-size = 5
+border-color = ${colors.background-transparent}
+
 [bar/top]
 width = 100%
 height = 30
@@ -37,9 +52,6 @@ background = ${colors.background}
 foreground = ${colors.dark_green}
 
 line-size = 1
-border-left-size = 0
-border-color = ${colors.background}
-
 font-0 = Hack:pixelsize=12;3
 font-1 = Hack:pixelsize=10;2
 font-2 = "Font Awesome 5 Free:style=Solid:pixelsize=10;2"
@@ -53,7 +65,7 @@ font-8 = Hack:style=Solid:pixelsize=10;2
 modules-left = menu i3
 ;modules-center = mpd
 modules-center = xwindow
-modules-right = filesystem memory cpu battery temperature pulseaudio date
+modules-right = pulseaudio date
 
 tray-position = right
 tray-padding = 2
@@ -83,7 +95,7 @@ label-indicator-background = ${colors.secondary}
 type = internal/fs
 interval = 25
 mount-0 = /
-label-mounted = %{T3}%{T2} %percentage_used%%  %{T-}
+label-mounted = %{T2} HDD:%{T1} %percentage_used%%   %{T-}
 
 [module/i3]
 type = internal/i3
@@ -154,14 +166,13 @@ label-song-ellipsis = true
 type = internal/cpu
 interval = 2
 format-prefix-foreground = ${colors.foreground-alt}
-label = %{T3}%{T2} %percentage:2%%%{T-}
-label-margin-right = 3
+label = %{T2} CPU:%{T1} %percentage:2%%%{T-}
 
 [module/memory]
 type = internal/memory
 interval = 2
 format-prefix-foreground = ${colors.foreground-alt}
-label = %{T3}%{T2} %gb_used%  %{T-}
+label = %{T2} MEM:%{T1} %gb_used%   %{T-}
 
 [module/eth]
 type = internal/network
@@ -169,8 +180,10 @@ interface = eth0
 interval = 3.0
 format-connected-prefix = " "
 format-connected-prefix-foreground = ${colors.foreground-alt}
-label-connected = %{T3}%{T2} IP: %local_ip% | %{T-}
 format-disconnected = %{T3}%{T2} disconnected%{T-}
+;label-connected = %{T3}%{T2} %local_ip%  %{T-}%{T3}%{T2} %downspeed:9%  %{T3}%{T2} %upspeed:9%   %{T-}
+label-connected = %{T3} ETH: %{T2}%local_ip%   %{T-}
+format-connected = <label-connected>
 
 [module/date]
 type = internal/date
