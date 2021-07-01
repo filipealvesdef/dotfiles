@@ -75,6 +75,8 @@ cursor-scroll = ns-resize
 [module/menu]
 type = custom/text
 content = "  %{T8}  "
+click-left = rofi run -show drun
+
 ;content-foreground = #458588
 
 [module/xwindow]
