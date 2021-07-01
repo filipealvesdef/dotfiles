@@ -32,7 +32,7 @@ light_green = #b8bb26
 [bar/top]
 width = 100%
 height = 30
-fixed-center = false
+fixed-center = true
 background = ${colors.background}
 foreground = ${colors.dark_green}
 
@@ -68,7 +68,6 @@ content = "  %{T8}  "
 [module/xwindow]
 type = internal/xwindow
 label = %{T3}%title%
-label-padding-left = 40
 
 [module/xkeyboard]
 type = internal/xkeyboard
