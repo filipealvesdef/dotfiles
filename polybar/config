@@ -1,0 +1,206 @@
+;==========================================================
+;
+;
+;   ██████╗  ██████╗ ██╗  ██╗   ██╗██████╗  █████╗ ██████╗
+;   ██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝██╔══██╗██╔══██╗██╔══██╗
+;   ██████╔╝██║   ██║██║   ╚████╔╝ ██████╔╝███████║██████╔╝
+;   ██╔═══╝ ██║   ██║██║    ╚██╔╝  ██╔══██╗██╔══██║██╔══██╗
+;   ██║     ╚██████╔╝███████╗██║   ██████╔╝██║  ██║██║  ██║
+;   ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
+;
+;
+;   To learn more about how to configure Polybar
+;   go to https://github.com/polybar/polybar
+;
+;   The README contains a lot of information
+;
+;==========================================================
+
+[colors]
+background = #88282828
+background-alt = #444
+foreground = #dfdfdf
+foreground-alt = #555
+primary = #ffb52a
+secondary = #e60053
+alert = #bd2c40
+
+red = #fb4934
+dark_green = #ebdbb2
+light_green = #b8bb26
+
+[bar/example]
+width = 100%
+height = 30
+fixed-center = false
+background = ${colors.background}
+foreground = ${colors.dark_green}
+
+line-size = 1
+border-left-size = 0
+border-color = ${colors.background}
+
+font-0 = Hack:pixelsize=12;3
+font-1 = Hack:pixelsize=10;2
+font-2 = "Font Awesome 5 Free:style=Solid:pixelsize=10;2"
+font-3 = "Font Awesome 5 Free:style=Solid:pixelsize=12;2"
+font-4 = "Font Awesome 5 Free:style=Regular:pixelsize=10;2"
+font-5 = "Font Awesome 5 Brands Regular:pixelsize=14;2"
+font-6 = "FuraCode Nerd Font:pixelsize=16;2"
+font-7 = "FuraCode Nerd Font:pixelsize=12;2"
+font-8 = Hack:style=Solid:pixelsize=10;2
+
+modules-left = menu i3
+;modules-center = mpd
+modules-center = xwindow
+modules-right = filesystem memory cpu battery temperature pulseaudio date
+
+tray-position = right
+tray-padding = 2
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+[module/menu]
+type = custom/text
+content = "  %{T8}  "
+;content-foreground = #458588
+
+[module/xwindow]
+type = internal/xwindow
+label = %{T3}%title%
+label-padding-left = 40
+
+[module/xkeyboard]
+type = internal/xkeyboard
+blacklist-0 = num lock
+format-prefix = " "
+format-prefix-foreground = ${colors.foreground-alt}
+label-layout = %layout%
+label-indicator-padding = 2
+label-indicator-margin = 1
+label-indicator-background = ${colors.secondary}
+
+[module/filesystem]
+type = internal/fs
+interval = 25
+mount-0 = /
+label-mounted = %{T3}%{T2} %percentage_used%% | %{T-}
+
+[module/i3]
+type = internal/i3
+pin-workspaces = true
+inline-mode = true
+enable-click = true
+enable-scroll = true
+reverse-scroll = false
+format = <label-state>
+
+; Only show workspaces on the same output as the bar
+;pin-workspaces = true
+;ws-icon-0 = 1;%{T7}%{T2}
+;ws-icon-1 = 2;%{T7}%{T2}
+;ws-icon-2 = 3;%{T7}%{T2}
+;ws-icon-3= 4;%{T6}%{T2}
+;ws-icon-4= 5;%{T7}%{T2}
+;ws-icon-5= 6;%{T6}%{T2}
+;ws-icon-6= 7;%{T6}%{T2}
+;ws-icon-7= 8;%{T8}%{T2}
+;ws-icon-8= 9;%{T8}%{T2}
+;ws-icon-9 = 10;%{T8}%{T2}
+
+;label-focused = %icon% %name%
+;label-urgent = %icon% %name%
+;label-unfocused = %icon% %name%
+
+ws-icon-0 = 1;
+ws-icon-1 = 2;
+ws-icon-2 = 3;
+ws-icon-3= 4;
+ws-icon-4= 5;
+ws-icon-5= 6;
+ws-icon-6= 7;
+ws-icon-7= 8;
+ws-icon-8= 9;
+ws-icon-9 = 10;
+
+label-focused = %{T8}%name%
+label-urgent = %{T8}%name%
+label-unfocused = %{T8}%name%
+
+label-separator-background = ${colors.content-background}
+
+label-focused-foreground = ${colors.dark_green}
+label-focused-underline = ${colors.dark_green}
+label-unfocused-foreground = ${colors.dark_green}
+label-urgent-foreground = ${colors.cyan}
+
+label-focused-padding = 1
+label-unfocused-padding = 1
+label-urgent-padding = 1
+
+[module/mpd]
+type = internal/mpd
+format-online = <label-song>  <icon-prev> <icon-stop> <toggle> <icon-next>
+
+icon-prev = 
+icon-stop = 
+icon-play = 
+icon-pause = 
+icon-next = 
+
+label-song-maxlen = 25
+label-song-ellipsis = true
+
+[module/cpu]
+type = internal/cpu
+interval = 2
+format-prefix-foreground = ${colors.foreground-alt}
+label = %{T3}%{T2} %percentage:2%%%{T-}
+label-margin-right = 3
+
+[module/memory]
+type = internal/memory
+interval = 2
+format-prefix-foreground = ${colors.foreground-alt}
+label = %{T3}%{T2} %gb_used% | %{T-}
+
+[module/eth]
+type = internal/network
+interface = eth0
+interval = 3.0
+format-connected-prefix = " "
+format-connected-prefix-foreground = ${colors.foreground-alt}
+label-connected = %{T3}%{T2} IP: %local_ip% | %{T-}
+format-disconnected = %{T3}%{T2} disconnected%{T-}
+
+[module/date]
+type = internal/date
+interval = 5
+date = "%{T4}%{T8} %a %b %d  %H:%M"
+label = %date%
+label-padding-left = 3
+label-padding-right = 2
+
+[module/pulseaudio]
+type = internal/pulseaudio
+
+format-volume = %{T4}<ramp-volume> %{T8}<label-volume>
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 奔
+ramp-volume-3 = 奔
+ramp-volume-4 = 奔
+ramp-volume-5 = 
+ramp-volume-6 = 
+ramp-volume-7 = 
+
+label-volume = %percentage:3%%
+label-volume-foreground = ${root.foreground}
+label-muted = "%{T4} %{T8}muted"
+click-right = exec pavucontrol
+
+[global/wm]
+margin-top = 5
+margin-bottom = 5
+
+; vim:ft=dosini
