@@ -1,3 +1,3 @@
 #!/usr/bin/zsh
 killall -q polybar
-polybar example &
+polybar top &

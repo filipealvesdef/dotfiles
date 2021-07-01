@@ -29,7 +29,7 @@ red = #fb4934
 dark_green = #ebdbb2
 light_green = #b8bb26
 
-[bar/example]
+[bar/top]
 width = 100%
 height = 30
 fixed-center = false
@@ -84,7 +84,7 @@ label-indicator-background = ${colors.secondary}
 type = internal/fs
 interval = 25
 mount-0 = /
-label-mounted = %{T3}%{T2} %percentage_used%% | %{T-}
+label-mounted = %{T3}%{T2} %percentage_used%%  %{T-}
 
 [module/i3]
 type = internal/i3
@@ -162,7 +162,7 @@ label-margin-right = 3
 type = internal/memory
 interval = 2
 format-prefix-foreground = ${colors.foreground-alt}
-label = %{T3}%{T2} %gb_used% | %{T-}
+label = %{T3}%{T2} %gb_used%  %{T-}
 
 [module/eth]
 type = internal/network
