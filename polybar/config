@@ -65,7 +65,7 @@ font-8 = Hack:style=Solid:pixelsize=9;2
 modules-left = menu i3
 ;modules-center = mpd
 modules-center = xwindow
-modules-right = pulseaudio weather date
+modules-right = now-playing pulseaudio weather date
 
 tray-position = right
 tray-padding = 2
@@ -90,6 +90,14 @@ exec-if = ping openweathermap.org -c 1
 interval = 600
 label-font = 2
 label-margin-left = 3
+
+[module/now-playing]
+type = custom/script
+tail = true
+format = <label>
+exec = $HOME/dotfiles/polybar/scripts/polybar-now-playing
+click-right = "kill -USR1 $(pgrep --oldest --parent %pid%)"
+label-padding-right = 4
 
 [module/xkeyboard]
 type = internal/xkeyboard
