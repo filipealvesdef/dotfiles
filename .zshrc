@@ -165,7 +165,7 @@ alias ls='ls --color=auto --group-directories-first'
 alias ll='ls -l'
 alias la='ls -a'
 alias lla='ls -la'
-alias cls='alias cls="unset NEWLINE_BEFORE_PROMPT && clear"'
+alias cls='unset NEWLINE_BEFORE_PROMPT && clear'
 alias sdi3='systemd-start-i3'
 
 # Keybindings
