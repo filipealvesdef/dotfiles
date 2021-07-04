@@ -1,0 +1,7 @@
+[user]
+	email = <my-email-here>
+	name = Filipe Alves
+[core]
+	editor = nvim
+[rebase]
+	autosquash = true
