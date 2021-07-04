@@ -1,1 +1,4 @@
 taskkill.exe /IM "vcxsrv.exe" /F
+genie -c pkill picom
+genie -c pkill i3
+tmux kill-session -t i3

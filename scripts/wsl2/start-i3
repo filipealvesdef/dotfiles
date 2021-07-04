@@ -2,9 +2,6 @@
 HOST_ADDR=$(awk '/nameserver / {print $2}' /etc/resolv.conf)
 export DISPLAY=$HOST_ADDR:0
 export PULSE_SERVER=tcp:$HOST_ADDR
-{
-    vcxsrv.exe -screen 0 2560x1440@2 -nodecoration -wgl -ac &
-    i3 &
-    picom &
-    feh --bg-center ~/Downloads/greenfog.jpg
-} &>/dev/null &
+picom -b
+feh --bg-center ~/Downloads/greenfog.jpg
+i3

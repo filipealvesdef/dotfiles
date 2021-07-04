@@ -1,0 +1,2 @@
+cmd.exe /c "start-xserver.bat" &>/dev/null &
+tmux new-session -d -s "i3" genie -c start-i3

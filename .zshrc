@@ -166,6 +166,7 @@ alias ll='ls -l'
 alias la='ls -a'
 alias lla='ls -la'
 alias cls='alias cls="unset NEWLINE_BEFORE_PROMPT && clear"'
+alias sdi3='systemd-start-i3'
 
 # Keybindings
 bindkey '^K' up-line-or-beginning-search
