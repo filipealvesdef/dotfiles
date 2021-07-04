@@ -16,6 +16,8 @@ colorscheme gruvbox
 
 " Enabling transparent background
 hi Normal guibg=NONE ctermbg=NONE
+hi CursorLineNr term=bold gui=bold guifg=#fabd2f guibg=None
+hi SignColumn guibg=None
 
 " Trailing spaces highlight
 set hlsearch
