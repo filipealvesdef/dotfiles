@@ -13,6 +13,7 @@ set cursorline
 
 " Gruvbox theme
 colorscheme gruvbox
+hi visual  guifg=#877e67 guibg=#ebdbb2 gui=none
 
 " Enabling transparent background
 hi Normal guibg=NONE ctermbg=NONE
