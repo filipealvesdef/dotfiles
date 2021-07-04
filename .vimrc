@@ -84,9 +84,11 @@ let g:WebDevIconsDefaultFolderSymbolColor = s:beige " sets the color for folders
 let g:WebDevIconsDefaultFileSymbolColor = s:blue " sets the color for files that did not match any rule
 
 " Vim git gutter
-nmap ghs <Plug>(GitGutterStageHunk)
-nmap ghu <Plug>(GitGutterUndoHunk)
-nmap shp <Plug>(GitGutterPreviewHunk)
+nmap ga <Plug>(GitGutterStageHunk)
+nmap gu <Plug>(GitGutterUndoHunk)
+nmap gp <Plug>(GitGutterPreviewHunk)
+nmap gj <Plug>(GitGutterNextHunk)
+nmap gk <Plug>(GitGutterPreviousHunk)
 set updatetime=100
 let g:gitgutter_sign_added = '┃'
 let g:gitgutter_sign_modified = '┃'
