@@ -84,7 +84,17 @@ let g:WebDevIconsDefaultFileSymbolColor = s:blue " sets the color for files that
 " Vim git gutter
 nmap ghs <Plug>(GitGutterStageHunk)
 nmap ghu <Plug>(GitGutterUndoHunk)
-" Change this (<leader>hp) (hunk preview)
+nmap shp <Plug>(GitGutterPreviewHunk)
+set updatetime=100
+let g:gitgutter_sign_added = '┃'
+let g:gitgutter_sign_modified = '┃'
+let g:gitgutter_sign_removed = '┃'
+let g:gitgutter_sign_removed_first_line = '┃'
+let g:gitgutter_sign_modified_removed = '┃'
+hi GitGutterAdd ctermbg=None guifg=#b8bb26
+hi GitGutterChange ctermbg=None guifg=#83a598
+hi GitGutterDelete ctermbg=None guifg=#fb4934
+hi GitGutterChangeDelete ctermbg=None guifg=#83a598
 
 " ALE settings
 let g:ale_disable_lsp = 1
