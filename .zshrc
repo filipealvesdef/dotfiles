@@ -167,6 +167,7 @@ alias la='ls -a'
 alias lla='ls -la'
 alias cls='unset NEWLINE_BEFORE_PROMPT && clear'
 alias sdi3='systemd-start-i3'
+alias tmux='tmux -2'
 
 # Keybindings
 bindkey '^K' up-line-or-beginning-search
@@ -178,3 +179,8 @@ bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 
 source /usr/share/nvm/init-nvm.sh
+
+# Load last tmux session automatically or create a new one
+if [ -z $TMUX ]; then
+    tmux a -t $HOST || tmux new -s $HOST; exit;
+fi
