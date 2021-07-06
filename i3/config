@@ -118,16 +118,16 @@ bindsym Mod1+r exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do 
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
-        bindsym h        resize shrink width 10 px
-        bindsym j        resize grow height 10 px
-        bindsym k        resize shrink height 10 px
-        bindsym l        resize grow width 10 px
+    bindsym h        resize shrink width 10 px
+    bindsym j        resize grow height 10 px
+    bindsym k        resize shrink height 10 px
+    bindsym l        resize grow width 10 px
 
-        # back to normal: Enter or Escape or Mod1+r
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-        bindsym Mod1+0x5b mode "default"
-        bindsym Control+0x5b mode "default"
+    # back to normal: Enter or Escape or Mod1+r
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym Mod1+0x5b mode "default"
+    bindsym Control+0x5b mode "default"
 }
 
 bindsym Mod1+0x5b mode "resize"
