@@ -184,3 +184,6 @@ source /usr/share/nvm/init-nvm.sh
 if [ -z $TMUX ]; then
     tmux a -t $HOST || tmux new -s $HOST; exit;
 fi
+
+# Exports
+PATH=$PATH:$HOME/.local/bin
