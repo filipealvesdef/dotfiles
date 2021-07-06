@@ -62,9 +62,8 @@ font-6 = "FuraCode Nerd Font:pixelsize=16;2"
 font-7 = "FuraCode Nerd Font:pixelsize=12;2"
 font-8 = Hack:style=Solid:pixelsize=9;2
 
-modules-left = menu i3
-;modules-center = mpd
-modules-center = xwindow
+modules-left = menu i3 xwindow
+modules-center = eth filesystem memory cpu
 modules-right = now-playing pulseaudio weather date
 
 tray-position = right
@@ -82,6 +81,7 @@ click-left = rofi run -show drun
 [module/xwindow]
 type = internal/xwindow
 label = %{T9}%title%
+label-padding-left = 2
 
 [module/weather]
 type = custom/script
@@ -113,7 +113,7 @@ label-indicator-background = ${colors.secondary}
 type = internal/fs
 interval = 25
 mount-0 = /
-label-mounted = %{T2} HDD:%{T1} %percentage_used%%   %{T-}
+label-mounted = %{T3} %{T9}HDD: %percentage_used%%   %{T-}
 
 [module/i3]
 type = internal/i3
@@ -184,13 +184,13 @@ label-song-ellipsis = true
 type = internal/cpu
 interval = 2
 format-prefix-foreground = ${colors.foreground-alt}
-label = %{T2} CPU:%{T1} %percentage:2%%%{T-}
+label = %{T9} CPU: %percentage:2%%%{T-}
 
 [module/memory]
 type = internal/memory
 interval = 2
 format-prefix-foreground = ${colors.foreground-alt}
-label = %{T2} MEM:%{T1} %gb_used%   %{T-}
+label = %{T9} MEM: %gb_used%   %{T-}
 
 [module/eth]
 type = internal/network
@@ -198,9 +198,9 @@ interface = eth0
 interval = 3.0
 format-connected-prefix = " "
 format-connected-prefix-foreground = ${colors.foreground-alt}
-format-disconnected = %{T3}%{T2} disconnected%{T-}
+format-disconnected = %{T9}  disconnected   %{T-}
 ;label-connected = %{T3}%{T2} %local_ip%  %{T-}%{T3}%{T2} %downspeed:9%  %{T3}%{T2} %upspeed:9%   %{T-}
-label-connected = %{T3} ETH: %{T2}%local_ip%   %{T-}
+label-connected = %{T9} ETH: %local_ip%   %{T-}
 format-connected = <label-connected>
 
 [module/date]
