@@ -153,6 +153,20 @@ nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 " Coc settings
 
+" Coc Snippets
+" Use <tab> for jump to next placeholder, it's default of coc.nvim
+let g:coc_snippet_next = '<tab>'
+
+" Use <s-tab> for jump to previous placeholder, it's default of coc.nvim
+let g:coc_snippet_prev = '<s-tab>'
+let g:coc_global_extensions = [
+   \ 'coc-json',
+   \ 'coc-tsserver',
+   \ 'coc-html',
+   \ 'coc-python',
+   \ 'coc-clangd',
+   \ 'coc-snippets',
+\]
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
