@@ -180,10 +180,5 @@ bindkey -M menuselect 'j' vi-down-line-or-history
 
 source /usr/share/nvm/init-nvm.sh
 
-# Load last tmux session automatically or create a new one
-if [ -z $TMUX ]; then
-    tmux a -t $HOST || tmux new -s $HOST; exit;
-fi
-
 # Exports
 PATH=$PATH:$HOME/.local/bin
