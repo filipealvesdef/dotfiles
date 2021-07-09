@@ -8,6 +8,17 @@ set shiftwidth=4
 set mouse=a
 set colorcolumn=80
 set cursorline
+set smartindent
+set scrolloff=20
+set noswapfile
+set nohls
+set incsearch
+set hidden
+set nobackup
+set nowritebackup
+set shortmess+=c
+set signcolumn=yes
+set updatetime=100
 
 call plug#begin('~/.vim/plugged')
 Plug 'dense-analysis/ale'
@@ -33,6 +44,16 @@ Plug 'tpope/vim-surround'
 Plug 'mg979/vim-visual-multi'
 call plug#end()
 
+" Mappings
+let mapleader = ' '
+map <silent> <C-H> :bp<CR>
+map <silent> <C-L> :bn<CR>
+map <silent> <C-X> :bd<CR>
+
+" allows to navigate in the popup menu with j and k keys
+inoremap <silent><expr> j pumvisible() ? "\<Down>" : "j"
+inoremap <silent><expr> k pumvisible() ? "\<Up>" : "k"
+
 " Gruvbox theme
 colorscheme gruvbox
 hi visual  guifg=#877e67 guibg=#ebdbb2 gui=none
@@ -43,7 +64,6 @@ hi CursorLineNr term=bold gui=bold guifg=#fabd2f guibg=None
 hi SignColumn guibg=None
 
 " Trailing spaces highlight
-set hlsearch
 highlight ExtraWhitespace ctermbg=160 guibg=#fb4934
 match ExtraWhitespace /\s\+$/
 autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
@@ -112,7 +132,6 @@ nmap gu <Plug>(GitGutterUndoHunk)
 nmap gp <Plug>(GitGutterPreviewHunk)
 nmap gj <Plug>(GitGutterNextHunk)
 nmap gk <Plug>(GitGutterPreviousHunk)
-set updatetime=100
 let g:gitgutter_sign_added = '┃'
 let g:gitgutter_sign_modified = '┃'
 let g:gitgutter_sign_removed = '┃'
@@ -132,20 +151,7 @@ nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 " Coc settings
-set hidden
-set nobackup
-set nowritebackup
-set updatetime=300
-set shortmess+=c
 
-" Always show the signcolumn, otherwise it would shift the text each time
-" diagnostics appear/become resolved.
-if has("nvim-0.5.0") || has("patch-8.1.1564")
-  " Recently vim can merge signcolumn and number column into one
-  set signcolumn=number
-else
-  set signcolumn=yes
-endif
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
