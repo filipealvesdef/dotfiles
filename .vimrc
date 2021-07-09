@@ -1,5 +1,3 @@
-execute pathogen#infect()
-
 syntax on
 set termguicolors
 filetype plugin indent on
@@ -10,6 +8,30 @@ set shiftwidth=4
 set mouse=a
 set colorcolumn=80
 set cursorline
+
+call plug#begin('~/.vim/plugged')
+Plug 'dense-analysis/ale'
+Plug 'jiangmiao/auto-pairs'
+Plug 'neoclide/coc.nvim'
+Plug 'morhetz/gruvbox'
+Plug 'Yggdroot/indentLine'
+Plug 'preservim/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'PhilRunninger/nerdtree-visual-selection'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzy-native.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-lua/popup.nvim'
+Plug 'SirVer/ultisnips'
+Plug 'vim-airline/vim-airline'
+Plug 'ryanoasis/vim-devicons'
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+Plug 'RRethy/vim-hexokinase', { 'do': 'make hexokinase' }
+Plug 'honza/vim-snippets'
+Plug 'tpope/vim-surround'
+Plug 'mg979/vim-visual-multi'
+call plug#end()
 
 " Gruvbox theme
 colorscheme gruvbox
