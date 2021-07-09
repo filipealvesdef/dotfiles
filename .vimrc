@@ -54,6 +54,10 @@ map <silent> <C-X> :bd<CR>
 inoremap <silent><expr> j pumvisible() ? "\<Down>" : "j"
 inoremap <silent><expr> k pumvisible() ? "\<Up>" : "k"
 
+" Vim git gutter
+nmap <leader>gj :GitGutterNextHunk<CR>
+nmap <leader>gk :GitGutterPrevHunk<CR>
+
 " Gruvbox theme
 colorscheme gruvbox
 hi visual  guifg=#877e67 guibg=#ebdbb2 gui=none
@@ -70,6 +74,9 @@ autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
 autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
+
+" This is useful for update gutters after add hunks with fugitive
+autocmd BufWinLeave * GitGutterAll
 
 " IndentLine pluggin settings
 let g:indentLine_char = '┆'
@@ -126,12 +133,6 @@ let g:NERDTreePatternMatchHighlightColor['.*_spec\.rb$'] = s:rspec_red " sets th
 let g:WebDevIconsDefaultFolderSymbolColor = s:beige " sets the color for folders that did not match any rule
 let g:WebDevIconsDefaultFileSymbolColor = s:blue " sets the color for files that did not match any rule
 
-" Vim git gutter
-nmap ga <Plug>(GitGutterStageHunk)
-nmap gu <Plug>(GitGutterUndoHunk)
-nmap gp <Plug>(GitGutterPreviewHunk)
-nmap gj <Plug>(GitGutterNextHunk)
-nmap gk <Plug>(GitGutterPreviousHunk)
 let g:gitgutter_sign_added = '┃'
 let g:gitgutter_sign_modified = '┃'
 let g:gitgutter_sign_removed = '┃'
