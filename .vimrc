@@ -153,6 +153,9 @@ nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 " Coc settings
 
+" Ultisnips
+let g:UltiSnipsExpandTrigger="<nop>"
+
 " Coc Snippets
 " Use <tab> for jump to next placeholder, it's default of coc.nvim
 let g:coc_snippet_next = '<tab>'
