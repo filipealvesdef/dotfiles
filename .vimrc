@@ -152,6 +152,8 @@ nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 " Coc settings
+nmap <Leader>gd <Plug>(coc-definition)
+nmap <Leader>gr <Plug>(coc-references)
 
 " Ultisnips
 let g:UltiSnipsExpandTrigger="<nop>"
