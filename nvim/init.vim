@@ -59,6 +59,8 @@ map <silent><C-X> :bd<CR>
 " allows to navigate in the popup menu with j and k keys
 inoremap <silent><expr> j pumvisible() ? "\<Down>" : "j"
 inoremap <silent><expr> k pumvisible() ? "\<Up>" : "k"
+" save all buffers and close current tab
+map <silent><Leader>tq :wa<CR>:tabclose<CR>
 
 " Trailing spaces highlight
 highlight ExtraWhitespace ctermbg=160 guibg=#fb4934
