@@ -59,6 +59,6 @@ require('telescope').setup{
 require('telescope').load_extension('fzy_native')
 EOF
 
-nnoremap <C-p> :lua require('telescope.builtin').find_files()<CR>
-nnoremap <C-f> :lua require('telescope.builtin').live_grep()<CR>
-nnoremap <C-o> :lua require('telescope.builtin').buffers()<CR>
+nnoremap <Leader>f<Leader> :lua require('telescope.builtin').find_files()<CR>
+nnoremap <Leader>pp :lua require('telescope.builtin').live_grep()<CR>
+nnoremap <Leader>oo :lua require('telescope.builtin').buffers()<CR>
