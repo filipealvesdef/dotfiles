@@ -136,14 +136,11 @@ for_window [class="Pavucontrol"] floating enable, resize set 400px 240px, move p
 
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
-
-# GAP VARIABLES
-set $inner 30
-set $outer 40
-
 # SET GAPS
-gaps inner $inner
-gaps outer $outer
+gaps inner 15
+gaps outer 0
+smart_gaps on
+smart_borders on
 
 # border colors
 set $fg "#bdae93"
