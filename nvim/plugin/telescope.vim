@@ -62,3 +62,6 @@ EOF
 nnoremap <Leader>f<Leader> :lua require('telescope.builtin').find_files()<CR>
 nnoremap <Leader>pp :lua require('telescope.builtin').live_grep()<CR>
 nnoremap <Leader>oo :lua require('telescope.builtin').buffers()<CR>
+nnoremap <Leader>ff :lua require('telescope.builtin').git_files()<CR>
+nnoremap <Leader>fe :lua require('telescope.builtin').file_browser()<CR>
+nnoremap <Leader>ps :lua require('telescope.builtin').grep_string()<CR>
