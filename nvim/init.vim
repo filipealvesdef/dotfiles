@@ -14,7 +14,7 @@ Plug 'nvim-lua/popup.nvim'
 Plug 'SirVer/ultisnips'
 Plug 'vim-airline/vim-airline'
 Plug 'ryanoasis/vim-devicons'
-Plug 'tpope/vim-fugitive'
+Plug 'filipealvesdef/vim-fugitive', { 'branch': 'custom-maps' }
 Plug 'airblade/vim-gitgutter'
 Plug 'RRethy/vim-hexokinase', { 'do': 'make hexokinase' }
 Plug 'honza/vim-snippets'
