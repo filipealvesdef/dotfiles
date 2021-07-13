@@ -42,7 +42,8 @@ for ROOT_FILENAME in ${ROOT_FILE_NAMES[@]}; do
                 if [ -d "$DOTFILES_PATH/$ROOT_FILENAME" ]; then
                     mkdir -p "$BACKUP_DIR/$ROOT_FILENAME";
                 fi
-                mv "$SRC_PATH" "$BACKUP_DIR/$FILENAME";
+                MV="mv $SRC_PATH $BACKUP_DIR/$FILENAME";
+                eval "$MV || sudo $MV";
                 printf "[BACKUP]  $SRC_PATH_TILDE -> $TARGET_PATH_TILDE\n"
                 printf "          (moved to $BACKUP_DIR_TILDE/$FILENAME)\n";
             fi
@@ -50,7 +51,8 @@ for ROOT_FILENAME in ${ROOT_FILE_NAMES[@]}; do
         else
             printf "[NEW]    ";
         fi
-        ln -s $TARGET_PATH $SRC_PATH;
+        LN="ln -s $TARGET_PATH $SRC_PATH"
+        eval "$LN || sudo $LN";
         printf "$SRC_PATH_TILDE -> $TARGET_PATH_TILDE\n"
         print_row
     done
