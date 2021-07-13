@@ -2,8 +2,7 @@
 TMP_DIR="/tmp"
 
 ### DOTFILES ###
-export DOTFILES_BACKUP_PATH="$HOME/.dotfiles-backup"
-export DOTFILES_USR_BIN="/usr/bin"
+DOTFILES_BACKUP_PATH="$HOME/.dotfiles-backup"
 DEFAULT_DOTFILES_PATH="$HOME/.dotfiles"
 DOTFILES_URL="https://github.com/filipealvesdef/dotfiles.git"
 
@@ -258,8 +257,7 @@ echo "Choose your dotfiles directory. If it already exists in your system, then"
 echo "it will be used. Otherwise, a new one will be cloned into this directory"
 echo -n "(default: $(tilde_path $DEFAULT_DOTFILES_PATH)) ";
 read DOTFILES_PATH
-export DOTFILES_PATH=${DOTFILES_PATH:-$DEFAULT_DOTFILES_PATH}
-export DOTFILES_SCRIPT_PATH="scripts"
+DOTFILES_PATH=${DOTFILES_PATH:-$DEFAULT_DOTFILES_PATH}
 
 if [ ! -d $DOTFILES_PATH ]; then
     printf "Cloning $DOTFILES_URL into $(tilde_path $DOTFILES_PATH)";
@@ -278,10 +276,11 @@ if [ "$DOTFILES_PATH" != "$DEFAULT_DOTFILES_PATH" ]; then
         mv $DEFAULT_DOTFILES_PATH $BACKUP_DIR
     fi
     ln -s $DOTFILES_PATH $DEFAULT_DOTFILES_PATH
+    DOTFILES_PATH=$DEFAULT_DOTFILES_PATH
 fi
 
 ### Symlinks to dotfiles ###
-/usr/bin/sh -c "$DEFAULT_DOTFILES_PATH/scripts/dotman"
+/usr/bin/sh -c "$DOTFILES_PATH/scripts/dotman"
 
 ### Install tmux plugins ###
 if [ -d "$TPM_DIR" ] && tmux -V &>/dev/null; then

@@ -11,8 +11,12 @@ tilde_path() {
 }
 
 ### Symlinks ###
+DOTFILES_BACKUP_PATH="$HOME/.dotfiles-backup"
 BACKUP_DIR="$DOTFILES_BACKUP_PATH/$(date +%s)"
 BACKUP_DIR_TILDE=$(tilde_path $BACKUP_DIR)
+DOTFILES_PATH="$HOME/.dotfiles"
+DOTFILES_SCRIPT_PATH="scripts"
+DOTFILES_USR_BIN="/usr/bin"
 
 printf "Updating dotfiles symlinks to $(tilde_path $DOTFILES_PATH)\n\n"
 ROOT_FILE_NAMES=($(ls -a $DOTFILES_PATH | grep -E "^\.|$DOTFILES_SCRIPT_PATH" | \
