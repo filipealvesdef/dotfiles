@@ -258,7 +258,7 @@ echo "Choose your dotfiles directory. If it already exists in your system, then"
 echo "it will be used. Otherwise, a new one will be cloned into this directory"
 echo -n "(default: $(tilde_path $DEFAULT_DOTFILES_PATH)) ";
 read DOTFILES_PATH
-export DOTFILES_PATH=${DOTFILES_PATH:-DEFAULT_DOTFILES_PATH}
+export DOTFILES_PATH=${DOTFILES_PATH:-$DEFAULT_DOTFILES_PATH}
 export DOTFILES_SCRIPT_PATH="scripts"
 
 if [ ! -d $DOTFILES_PATH ]; then
