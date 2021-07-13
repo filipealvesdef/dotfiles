@@ -87,11 +87,18 @@ loading_animation () {
 }
 
 clean_line () {
-    printf "\r";
-    for i in {1..200}; do
-        printf " ";
+    echo -ne "\r\033[K\r"
+}
+
+print_row() {
+    for i in {1..80}; do
+        printf "-";
     done
-    printf "\r";
+    printf "\n";
+}
+
+tilde_path() {
+    echo "$1" | sed s/${HOME//\//\\\/}/\~/
 }
 
 if [ "$1" == "--clean" ]; then
@@ -254,37 +261,58 @@ fi
 wait;
 
 ### Dotfiles ###
-printf "\nWhere the dotfiles will live? (default: $DOTFILES_DEFAULT_PATH) "
+printf "\nWhere the dotfiles will live? (default: $(tilde_path $DOTFILES_DEFAULT_PATH)) "
 read DOTFILES_PATH
+echo -ne "\033[1A\r" # line up
+clean_line
 DOTFILES_PATH=${DOTFILES_PATH:-$DOTFILES_DEFAULT_PATH}
 if [ ! -d $DOTFILES_PATH ]; then
-    printf "Cloning dotfiles into $DOTFILES_PATH";
+    printf "Cloning dotfiles into $(tilde_path $DOTFILES_PATH)";
     git clone --quiet $DOTFILES_URL $DOTFILES_PATH &>/dev/null &
     loading_animation
     clean_line
-    printf "dotfiles cloned into $DOTFILES_PATH\n"
+    printf "Dotfiles cloned into $(tilde_path $DOTFILES_PATH\n)"
 fi
 
 ### Symlinks ###
-printf "Updating dotfiles symlinks in $HOME to $DOTFILES_PATH\n\n"
-FILE_NAMES=($(ls -a $DOTFILES_PATH | grep -Ev "[\.]+$|.git" | xargs -n1 printf "%s "));
-for FILE_NAME in ${FILE_NAMES[@]}; do
-    FILE_DIR="$HOME/$FILE_NAME";
-    if [ -s $FILE_DIR ]; then
-        [ -L $FILE_DIR ] && TARGET=$(readlink $FILE_DIR)
-        if [ $TARGET == "$DOTFILES_PATH/$FILE_NAME" ]; then
-            echo "[NOT CHANGED] $FILE_DIR -> $DOTFILES_PATH/$FILE_NAME";
-            continue;
-        fi
-        mkdir -p $BACKUP_DIR;
-        echo "[BACKUP] $FILE_DIR -> $BACKUP_DIR/$FILE_NAME";
-        echo "[UPDATE] $FILE_DIR -> $DOTFILES_PATH/$FILE_NAME";
-    else
-        echo "[NEW] $FILE_DIR -> $DOTFILES_PATH/$FILE_NAME";
+printf "Updating dotfiles symlinks to $(tilde_path $DOTFILES_PATH)\n\n"
+ROOT_FILE_NAMES=($(ls -a $DOTFILES_PATH | grep -E "^\." | \
+    grep -Ev "[\.]+$|\.git$" | xargs -n1 printf "%s "));
+BACKUP_DIR_TILDE=$(tilde_path $BACKUP_DIR)
+for ROOT_FILENAME in ${ROOT_FILE_NAMES[@]}; do
+    TARGET_PATH="$DOTFILES_PATH/$ROOT_FILENAME";
+    FILENAMES=("$ROOT_FILENAME")
+    if [ -d $TARGET_PATH ]; then
+        FILENAMES=($(ls $TARGET_PATH | xargs -n1 printf "$ROOT_FILENAME/%s "));
     fi
+    for FILENAME in ${FILENAMES[@]}; do
+        SRC_PATH="$HOME/$FILENAME";
+        SRC_PATH_TILDE=$(tilde_path $SRC_PATH);
+        TARGET_PATH="$DOTFILES_PATH/$FILENAME"
+        TARGET_PATH_TILDE=$(tilde_path $TARGET_PATH);
+        if [ -s $SRC_PATH ] || [ -L $SRC_PATH ]; then
+            LINK_PATH=$(readlink $SRC_PATH)
+            if [ $LINK_PATH == $TARGET_PATH ]; then
+                echo "[SAME]    $SRC_PATH_TILDE -> $TARGET_PATH_TILDE";
+                print_row
+                continue;
+            else
+                if [ -d "$HOME/$ROOT_FILENAME" ]; then
+                    mkdir -p "$BACKUP_DIR/$ROOT_FILENAME";
+                fi
+                mv "$SRC_PATH" "$BACKUP_DIR/$FILENAME";
+                printf "[BACKUP]  $SRC_PATH_TILDE -> $TARGET_PATH_TILDE\n"
+                printf "          (moved to $BACKUP_DIR_TILDE/$FILENAME)\n";
+            fi
+            printf "[UPDATED] ";
+        else
+            printf "[NEW]    ";
+        fi
+        ln -s $TARGET_PATH $SRC_PATH;
+        printf "$SRC_PATH_TILDE -> $TARGET_PATH_TILDE\n"
+        print_row
+    done
 done
-
-echo ""
 
 ### Tmux
 echo -n "Installing tmux plugins"
