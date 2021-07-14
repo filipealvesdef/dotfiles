@@ -38,7 +38,7 @@ for ROOT_FILENAME in ${ROOT_FILE_NAMES[@]}; do
         TARGET_PATH_TILDE=$(tilde_path $TARGET_PATH);
         if [ -s $SRC_PATH ] || [ -L $SRC_PATH ]; then
             LINK_PATH=$(readlink $SRC_PATH)
-            if [ $LINK_PATH == $TARGET_PATH ]; then
+            if [ "$LINK_PATH" == "$TARGET_PATH" ]; then
                 echo "[SAME]    $SRC_PATH_TILDE -> $TARGET_PATH_TILDE";
                 print_row
                 continue;
@@ -61,4 +61,16 @@ for ROOT_FILENAME in ${ROOT_FILE_NAMES[@]}; do
         print_row
     done
 done
+
+# ssh config file can't be accessed by ssh if it is a symbolic link.
+#
+# The way that I found to solve this for now, is renaming the original config
+# file to .ssh_src and copying its content to the config file, which is not a
+# sym link and now can be used by ssh. I am also setting the config files
+# permission to avoid permission errors.
+#
+mv "$HOME/.ssh/config" "$HOME/.ssh/config_src" && \
+    cp "$HOME/.ssh/config_src" "$HOME/.ssh/config" &&\
+    chmod 644 "$HOME/.ssh/config" &>/dev/null
+
 printf "Symlinks to dotfiles updated!\n";
