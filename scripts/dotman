@@ -56,6 +56,7 @@ for ROOT_FILENAME in ${ROOT_FILE_NAMES[@]}; do
             printf "[NEW]    ";
         fi
         LN="ln -s $TARGET_PATH $SRC_PATH &>/dev/null"
+        mkdir -p $(dirname $SRC_PATH);
         eval "$LN || sudo $LN";
         printf "$SRC_PATH_TILDE -> $TARGET_PATH_TILDE\n"
         print_row
