@@ -28,8 +28,13 @@ if ("$SCOOP_PKG_LIST_URL" -eq '') {
 $SCOOP_PKG_LIST = (New-Object System.Net.WebClient).DownloadString($SCOOP_PKG_LIST_URL);
 
 ## Download packages
-scoop install sudo archwsl
-sudo scoop install $SCOOP_PKG_LIST
+foreach ($pkg in (($SCOOP_PKG_LIST -split '\r?\n').Trim())) {
+    if ($pkg -ne 'firacode-nf') {
+        scoop install $pkg;
+    }
+}
+
+sudo scoop install 'firacode-nf'
 
 # Installing Pulse Service with NSSM
 nssm remove PulseAudio confirm
