@@ -78,7 +78,7 @@ fi
 echo "If you want to use an alternative package list, enter its URL here."
 echo -n "To use de default package list, just press enter: "
 read PACKAGE_LIST_URL
-PACKAGE_LIST_URL=${PACKAGE_LIST_URL:$PACKAGE_LIST_DEFAULT_URL}
+PACKAGE_LIST_URL=${PACKAGE_LIST_URL:-$PACKAGE_LIST_DEFAULT_URL}
 GENERAL_PKGS=($(curl $PACKAGE_LIST_URL));
 echo "Syncing packages";
 yay -S --needed "${GENERAL_PKGS[@]}"
