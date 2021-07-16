@@ -67,10 +67,10 @@ if (!"$Env:USR_BIN") {
     setx USR_BIN "$USR_BIN" > $null;
 }
 
-$IS_USR_BIN_SET = False;
+$IS_USR_BIN_SET = $False;
 foreach ($p in $Env:Path.Split(';')) {
     if ($p -eq $USR_BIN) {
-        $IS_USR_BIN_SET = True;
+        $IS_USR_BIN_SET = $True;
         break;
     }
 }
