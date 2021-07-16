@@ -55,6 +55,7 @@ on github (default: $GITHUB_DOTFILES_BASENAME)"
     if ($DOTFILES_BASENAME -ne "") {
         $GITHUB_DOTFILES_BASENAME = $DOTFILES_BASENAME;
     }
+    git config --global core.autocrlf false
     git clone "https://github.com/$GITHUB_DOTFILES_BASENAME.git" "$DOTFILES_PATH"
 }
 
