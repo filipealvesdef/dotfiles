@@ -1,0 +1,215 @@
+#!/usr/bin/zsh
+TMP_DIR="/tmp"
+
+### DOTFILES ###
+DOTFILES_BACKUP_PATH="$HOME/.dotfiles-backup"
+DEFAULT_DOTFILES_PATH="$HOME/.dotfiles"
+DOTFILES_URL="https://github.com/filipealvesdef/dotfiles.git"
+PACKAGE_LIST_DEFAULT_URL="https://raw.githubusercontent.com/filipealvesdef/dotfiles/master/install/package-list"
+
+### TPM  ###
+TPM_DIR="$HOME/.tmux/plugins/tpm"
+TPM_URL="https://github.com/tmux-plugins/tpm"
+
+### YAY ###
+YAY_URL="https://aur.archlinux.org/yay.git"
+YAY_TMP_DIR="$TMP_DIR/yay"
+
+### VIM PLUG ###
+VIM_PLUG_LOADER_PATH="$HOME/.local/share/nvim/site/autoload/plug.vim"
+VIM_PLUG_URL="https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+NVIM_PLUGINS_PATH="$HOME/.local/share/nvim/plugged"
+
+### POLYBAR_FORECAST ###
+POLYBAR_FORECAST_PATH="/usr/bin/polybar-forecast"
+POLYBAR_FORECAST_BIN_URL="https://github.com/kamek-pf/polybar-forecast/releases/download/v1.1.0/polybar-forecast-linux-x86_64"
+
+### ZPLUG ###
+ZPLUG_URL="https://raw.githubusercontent.com/zplug/installer/master/installer.zsh"
+ZPLUG_PATH="$HOME/.zplug"
+
+### GRUVBOX MATERIAL GTK ###
+GRUVBOX_MATERIAL_GTK_URL="https://github.com/sainnhe/gruvbox-material-gtk.git"
+GRUVBOX_MATERIAL_GTK_TMP_PATH="$TMP_DIR/gruvbox-material-gtk"
+THEMES_PATH="/usr/share/themes"
+THEME_NAME="Gruvbox-Material-Dark"
+
+# GENIE
+SYSTEMD_GENIE_URL="https://github.com/arkane-systems/genie/releases/download/v1.42/genie-systemd-1.42-1-x86_64.pkg.tar.zst"
+
+loading_animation () {
+    while ps | grep $! &> /dev/null; do
+        echo -n "."
+        sleep 0.7
+    done
+}
+
+clean_line () {
+    echo -ne "\r\033[K\r"
+}
+
+tilde_path() {
+    echo "$1" | sed s/${HOME//\//\\\/}/\~/
+}
+
+# Optional dotfiles path (useful for wsl installations)
+# If this parameter is given, the script will use this
+# instead of cloning the repository inside the machine
+DOTFILES_PATH="$1"
+
+### Root packages ###
+## PACKAGE LIST ###
+ROOT_PKGS=("base-devel" "git");
+echo "Installing root packages with pacman";
+sudo pacman -S --needed "${ROOT_PKGS[@]}";
+
+### yay ###
+if ! yay --version &> /dev/null; then
+    echo -n "Installing package manager helper (YAY)";
+    [ -d "$YAY_TMP_DIR" ] && rm -rf $YAY_TMP_DIR;
+    git clone $YAY_URL $YAY_TMP_DIR && \
+    cd "$YAY_TMP_DIR" && \
+    makepkg -si && \
+    cd - && \
+    rm -rf "$YAY_TMP_DIR";
+fi
+
+### General packages ###
+echo "If you want to use an alternative pacage list, enter its URL here."
+echo -n "To use de default pacage list, just press enter: "
+read PACKAGE_LIST_URL
+PACKAGE_LIST_URL=${PACKAGE_LIST_URL:$PACKAGE_LIST_DEFAULT_URL}
+GENERAL_PKGS=($(curl $PACKAGE_LIST_URL));
+echo "Syncing packages";
+yay -S --needed "${GENERAL_PKGS[@]}"
+echo "All packages were updated!"
+
+### Docker post install ###
+sudo groupadd docker
+sudo usermod -aG docker $USER
+
+### z-plug for managing zsh plugins###
+if [ ! -d "$ZPLUG_PATH" ]; then
+    echo "Installing zsh plugin manager (zplug)";
+    /usr/bin/sh -c "curl -sL --proto-redir -all,https $ZPLUG_URL | zsh";
+    echo "z-plug installed!"
+fi
+
+### Vim-plug ###
+echo "Installing vim-plug";
+/usr/bin/sh -c "curl -fsLo $VIM_PLUG_LOADER_PATH --create-dirs \
+$VIM_PLUG_URL"
+echo "Vim-Plug installed!"
+
+### Tmux plugin manager ###
+if [ ! -d $TPM_DIR ]; then
+    echo "Cloning TPM (tmux plugin manager)";
+    /usr/bin/sh -c "git clone --quiet $TPM_URL $TPM_DIR"
+    echo "TPM installed!"
+fi
+
+### GTK theme ###
+if [ ! -d "$THEMES_PATH/$THEME_NAME" ] && [ ! -d "$GRUVBOX_MATERIAL_GTK_TMP_PATH" ];
+then
+    echo -n "Installing $THEME_NAME into $THEMES_PATH/$THEME_NAME";
+    sudo /usr/bin/sh -c "git clone --quiet "$GRUVBOX_MATERIAL_GTK_URL" \
+        "$GRUVBOX_MATERIAL_GTK_TMP_PATH" && \
+        mv "$GRUVBOX_MATERIAL_GTK_TMP_PATH/themes/*" "$THEMES_PATH" && \
+        rm -rf $GRUVBOX_MATERIAL_GTK_TMP_PATH" &>/dev/null &
+    loading_animation
+    clean_line
+    printf "$THEME_NAME installed!\n"
+fi
+
+### Polybar forecast ###
+if [ ! -f $POLYBAR_FORECAST_PATH ]; then
+    echo -n "Installing polybar forecast into $POLYBAR_FORECAST_PATH";
+    /usr/bin/sh -c "sudo curl -fsLo $POLYBAR_FORECAST_PATH \
+        $POLYBAR_FORECAST_BIN_URL && \
+        sudo chmod +x $POLYBAR_FORECAST_PATH" &>/dev/null &
+    loading_animation
+    clean_line
+    printf "Polybar forecast installed!\n"
+fi
+
+source /usr/share/nvm/init-nvm.sh
+if nvm --version &> /dev/null && ! nvm run node --version &> /dev/null; then
+    echo "Installing latest node with NVM";
+    nvm install node;
+    nvm use node;
+    echo "Node Installed!\n"
+fi
+
+### Yarn ###
+if npm --version &> /dev/null && ! yarn --version &> /dev/null; then
+    echo "Installing yarn";
+    npm install --global yarn;
+    echo "Yarn installed!";
+fi
+
+# I got some troubles with Coc loading python language server and pynvim
+# solved my problems:
+if ! pip show pynvim &>/dev/null; then
+    echo -n "Installing pynvim"
+    pip install --user --upgrade pynvim
+    printf "Pynvim installed!\n"
+fi
+
+### Dotfiles bootstrap ###
+if [ ! "$DOTFILES_PATH" ]; then
+    echo "Choose your dotfiles directory. If it already exists in your system, then"
+    echo "it will be used. Otherwise, a new one will be cloned into this directory"
+    echo -n "(default: $(tilde_path $DEFAULT_DOTFILES_PATH)) ";
+    read DOTFILES_PATH
+    DOTFILES_PATH=${DOTFILES_PATH:-$DEFAULT_DOTFILES_PATH}
+fi
+
+if [ ! -d $DOTFILES_PATH ]; then
+    echo "Cloning $DOTFILES_URL into $(tilde_path $DOTFILES_PATH)";
+    git clone --quiet $DOTFILES_URL $DOTFILES_PATH
+    echo "Dotfiles cloned!"
+fi
+
+if [ "$DOTFILES_PATH" != "$DEFAULT_DOTFILES_PATH" ]; then
+    if [ -d $DEFAULT_DOTFILES_PATH ] || [ -L $DEFAULT_DOTFILES_PATH ]; then
+        BACKUP_DIR="$DOTFILES_BACKUP_PATH/$(date +%s)"
+        echo "Moving your old $(tilde_path $DEFAULT_DOTFILES_PATH) diretory"
+        echo "to $(tilde_path "$BACKUP_DIR")"
+        mkdir -p $BACKUP_DIR
+        mv $DEFAULT_DOTFILES_PATH $BACKUP_DIR
+    fi
+    ln -s $DOTFILES_PATH $DEFAULT_DOTFILES_PATH
+    DOTFILES_PATH=$DEFAULT_DOTFILES_PATH
+fi
+
+#### Symlinks to dotfiles ###
+/usr/bin/sh -c "$DOTFILES_PATH/scripts/dotman"
+
+### Install tmux plugins ###
+if tmux -V &>/dev/null; then
+    echo "Installing tmux plugins"
+    tmux new -d -s plugins "$TPM_DIR/scripts/install_plugins.sh && \
+    tmux kill-session -t plugins";
+    echo "Tmux plugins installed!"
+fi
+
+### Install zsh plugins ###
+/usr/bin/zsh -c "zplug install"
+
+### Install nvim plugins ###
+if [ -f "$VIM_PLUG_LOADER_PATH" ] && nvim --version &>/dev/null; then
+    echo -n "Installing neovim plugins"
+    nvim +PlugInstall +qa # Install the plugins
+    nvim +qa              # Install Coc plugins
+    printf "Neovim plugins installed!\n"
+fi
+
+echo "Installing genie-systemd"
+curl -Lo "$TMP_DIR/$(basename $SYSTEMD_GENIE_URL)" "$SYSTEMD_GENIE_URL"
+sudo pacman -U "$TMP_DIR/$(basename $SYSTEMD_GENIE_URL)"
+tmux new -d -s "systemd-install" "genie -c 'sudo systemctl mask \
+    systemd-modules-load.service' && tmux kill-session -t systemd-install"
+echo "genie-systemd installed!"
+
+wait;
+printf "All Done!\n";
