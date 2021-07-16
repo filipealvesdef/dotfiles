@@ -89,4 +89,4 @@ $DOTFILES_PATH_WSL="`$(wslpath -u $($DOTFILES_PATH.replace('\', '\\')))"
 arch -c /usr/bin/bash -c "$DOTFILES_PATH_WSL/install/preinstall-archwsl $USERNAME"
 arch config --default-user $USERNAME
 arch -c /usr/bin/bash -c "$DOTFILES_PATH_WSL/install/install-arch $DOTFILES_PATH_WSL"
-#arch -c tmux new -s "welcome"
+wt
