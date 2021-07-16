@@ -46,7 +46,7 @@ if ("$DOTFILES_PATH" -eq '') {
 }
 
 if ("$DOTFILES_PATH" -ne "$Env:DOTFILES_PATH") {
-    setx DOTFILES_PATH $DOTFILES_PATH;
+    setx DOTFILES_PATH $DOTFILES_PATH > $null;
 }
 
 if (!(Test-Path "$DOTFILES_PATH")) {
@@ -86,7 +86,7 @@ Start-Process -FilePath "cmd.exe" -Verb RunAs -ArgumentList "/c", `
 ### Arch Installation ###
 $USERNAME = Read-Host -Prompt 'Enter your WSL username';
 $DOTFILES_PATH_WSL="`$(wslpath -u $($DOTFILES_PATH.replace('\', '\\')))"
-arch -c /usr/bin/bash -c "$DOTFILES_PATH_WSL/install/pre-install $USERNAME"
+arch -c /usr/bin/bash -c "$DOTFILES_PATH_WSL/install/preinstall-archwsl $USERNAME"
 arch config --default-user $USERNAME
-arch -c /usr/bin/bash -c "$DOTFILES_PATH_WSL/install/install $DOTFILES_PATH_WSL"
+arch -c /usr/bin/bash -c "$DOTFILES_PATH_WSL/install/install-arch $DOTFILES_PATH_WSL"
 #arch -c tmux new -s "welcome"
