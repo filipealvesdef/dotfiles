@@ -77,7 +77,7 @@
                 "fontWeight": "normal",
                 "guid": "{a5a97cb8-8961-5535-816d-772efe0c6a3f}",
                 "hidden": false,
-                "icon": "C:\\Users\\filipealves\\Pictures\\icons\\iconfinder_386451_arch linux_archlinux_icon_16px.png",
+                "icon": "ms-appx:///ProfileIcons/arch_16px.ico",
                 "name": "Arch",
                 "padding": "0",
                 "scrollbarState": "hidden",
