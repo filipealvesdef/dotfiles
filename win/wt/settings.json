@@ -82,7 +82,7 @@
                 "padding": "0",
                 "scrollbarState": "hidden",
                 "source": "Windows.Terminal.Wsl",
-                "startingDirectory": "\\\\wsl$\\Arch\\home\\filipealves",
+                "startingDirectory": "\\\\wsl$\\Arch\\home\\%WSL_USER%",
                 "useAcrylic": true
             },
             {

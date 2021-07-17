@@ -91,8 +91,11 @@ Start-Process -FilePath "cmd.exe" -Verb RunAs -ArgumentList "/c", `
 
 ### Arch Installation ###
 $USERNAME = Read-Host -Prompt 'Enter your WSL username';
+setx WSL_USER "$USERNAME" > $null;
+
 $DOTFILES_PATH_WSL="`$(wslpath -u $($DOTFILES_PATH.replace('\', '\\')))"
 arch -c /usr/bin/bash -c "$DOTFILES_PATH_WSL/install/preinstall-archwsl $USERNAME"
 arch config --default-user $USERNAME
 arch -c /usr/bin/bash -c "$DOTFILES_PATH_WSL/install/install-arch $DOTFILES_PATH_WSL"
 wt
+exit
