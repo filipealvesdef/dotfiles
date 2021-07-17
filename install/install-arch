@@ -31,17 +31,6 @@ ZPLUG_PATH="$HOME/.zplug"
 # GENIE
 SYSTEMD_GENIE_URL="https://github.com/arkane-systems/genie/releases/download/v1.42/genie-systemd-1.42-1-x86_64.pkg.tar.zst"
 
-loading_animation () {
-    while ps | grep $! &> /dev/null; do
-        echo -n "."
-        sleep 0.7
-    done
-}
-
-clean_line () {
-    echo -ne "\r\033[K\r"
-}
-
 tilde_path() {
     echo "$1" | sed s/${HOME//\//\\\/}/\~/
 }
@@ -104,13 +93,11 @@ fi
 
 ### Polybar forecast ###
 if [ ! -f $POLYBAR_FORECAST_PATH ]; then
-    echo -n "Installing polybar forecast into $POLYBAR_FORECAST_PATH";
-    /usr/bin/sh -c "sudo curl -fsLo $POLYBAR_FORECAST_PATH \
+    echo "Installing polybar forecast into $POLYBAR_FORECAST_PATH";
+    sudo curl -fsLo $POLYBAR_FORECAST_PATH \
         $POLYBAR_FORECAST_BIN_URL && \
-        sudo chmod +x $POLYBAR_FORECAST_PATH" &>/dev/null &
-    loading_animation
-    clean_line
-    printf "Polybar forecast installed!\n"
+        sudo chmod +x $POLYBAR_FORECAST_PATH;
+    echo "Polybar forecast installed!"
 fi
 
 source /usr/share/nvm/init-nvm.sh
