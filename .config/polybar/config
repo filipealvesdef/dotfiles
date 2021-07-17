@@ -18,31 +18,11 @@
 
 [colors]
 background = #88282828
-background-transparent = #00000000
 foreground = #dfdfdf
 foreground-alt = #555
 primary = #ffb52a
-secondary = #e60053
 alert = #bd2c40
-
-red = #fb4934
 dark_green = #ebdbb2
-light_green = #b8bb26
-
-[bar/bottom]
-width = 100%
-height = 22
-fixed-center = true
-background = ${colors.background-transparent}
-foreground = ${colors.dark_green}
-bottom = true
-
-font-0 = Hack:pixelsize=10;2
-font-1 = "Font Awesome 5 Free:style=Solid:pixelsize=10;2"
-modules-center = eth filesystem memory cpu
-
-border-bottom-size = 5
-border-color = ${colors.background-transparent}
 
 [bar/top]
 width = 100%
@@ -54,13 +34,9 @@ foreground = ${colors.dark_green}
 line-size = 1
 font-0 = "FuraCode Nerd Font:pixelsize=12;2"
 font-1 = Weather Icons:size=12;2
-font-2 = "Font Awesome 5 Free:style=Solid:pixelsize=10;2"
+font-2 = "Font Awesome 5 Free:style=Solid:pixelsize=9;2"
 font-3 = "Font Awesome 5 Free:style=Solid:pixelsize=12;2"
-font-4 = "Font Awesome 5 Free:style=Regular:pixelsize=10;2"
-font-5 = "Font Awesome 5 Brands Regular:pixelsize=14;2"
-font-6 = "FuraCode Nerd Font:pixelsize=16;2"
-font-7 = "FuraCode Nerd Font:pixelsize=12;2"
-font-8 = Hack:style=Solid:pixelsize=9;2
+font-4 = Hack:style=Solid:pixelsize=9;2
 
 modules-left = menu i3 xwindow
 modules-center = eth filesystem memory cpu
@@ -73,14 +49,14 @@ cursor-scroll = ns-resize
 
 [module/menu]
 type = custom/text
-content = "  %{T8}  "
+content = "    "
 click-left = rofi run -show drun
 
 ;content-foreground = #458588
 
 [module/xwindow]
 type = internal/xwindow
-label = %{T9}%title%
+label = %{T5}%title%
 label-padding-left = 2
 
 [module/weather]
@@ -97,23 +73,13 @@ tail = true
 format = <label>
 exec = "$DOTFILES_PATH/.config/polybar/custom-modules/polybar-now-playing/polybar-now-playing.py"
 click-right = "kill -USR1 $(pgrep --oldest --parent %pid%)"
-label-padding-right = 4
-
-[module/xkeyboard]
-type = internal/xkeyboard
-blacklist-0 = num lock
-format-prefix = " "
-format-prefix-foreground = ${colors.foreground-alt}
-label-layout = %layout%
-label-indicator-padding = 2
-label-indicator-margin = 1
-label-indicator-background = ${colors.secondary}
+label-padding-right = 5
 
 [module/filesystem]
 type = internal/fs
 interval = 25
 mount-0 = /
-label-mounted = %{T3} %{T9}HDD: %percentage_used%%   %{T-}
+label-mounted = %{T3} %{T5}HDD: %percentage_used%%   %{T-}
 
 [module/i3]
 type = internal/i3
@@ -137,10 +103,6 @@ format = <label-state>
 ;ws-icon-8= 9;%{T8}%{T2}
 ;ws-icon-9 = 10;%{T8}%{T2}
 
-;label-focused = %icon% %name%
-;label-urgent = %icon% %name%
-;label-unfocused = %icon% %name%
-
 ws-icon-0 = 1;
 ws-icon-1 = 2;
 ws-icon-2 = 3;
@@ -152,9 +114,9 @@ ws-icon-7= 8;
 ws-icon-8= 9;
 ws-icon-9 = 10;
 
-label-focused = %{T8}%name%
-label-urgent = %{T8}%name%
-label-unfocused = %{T8}%name%
+label-focused = %name%
+label-urgent = %name%
+label-unfocused = %name%
 
 label-separator-background = ${colors.content-background}
 
@@ -184,13 +146,13 @@ label-song-ellipsis = true
 type = internal/cpu
 interval = 2
 format-prefix-foreground = ${colors.foreground-alt}
-label = %{T9} CPU: %percentage:2%%%{T-}
+label = %{T3} %{T5}CPU: %percentage:2%%%{T-}
 
 [module/memory]
 type = internal/memory
 interval = 2
 format-prefix-foreground = ${colors.foreground-alt}
-label = %{T9} MEM: %gb_used%   %{T-}
+label = %{T3}%{T5} MEM: %gb_used%   %{T-}
 
 [module/eth]
 type = internal/network
@@ -198,15 +160,14 @@ interface = eth0
 interval = 3.0
 format-connected-prefix = " "
 format-connected-prefix-foreground = ${colors.foreground-alt}
-format-disconnected = %{T9}  disconnected   %{T-}
-;label-connected = %{T3}%{T2} %local_ip%  %{T-}%{T3}%{T2} %downspeed:9%  %{T3}%{T2} %upspeed:9%   %{T-}
-label-connected = %{T9} ETH: %local_ip%   %{T-}
+format-disconnected = %{T3}%{T5} disconnected   %{T-}
+label-connected = %{T3}%{T5} ETH: %local_ip%   %{T-}
 format-connected = <label-connected>
 
 [module/date]
 type = internal/date
 interval = 5
-date = "%{T4}%{T8} %a %b %d  %H:%M"
+date = "%{T4}%{T-} %a %b %d  %H:%M"
 label = %date%
 label-padding-left = 3
 label-padding-right = 2
@@ -214,7 +175,7 @@ label-padding-right = 2
 [module/pulseaudio]
 type = internal/pulseaudio
 
-format-volume = %{T4}<ramp-volume> %{T8}<label-volume>
+format-volume = %{T4}<ramp-volume> %{T-}<label-volume>
 ramp-volume-0 = 
 ramp-volume-1 = 
 ramp-volume-2 = 奔
@@ -226,7 +187,7 @@ ramp-volume-7 = 
 
 label-volume = %percentage:3%%
 label-volume-foreground = ${root.foreground}
-label-muted = "%{T4} %{T8}muted"
+label-muted = "%{T4} %{T-}muted"
 click-right = exec pavucontrol
 
 [global/wm]
