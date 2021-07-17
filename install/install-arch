@@ -28,12 +28,6 @@ POLYBAR_FORECAST_BIN_URL="https://github.com/kamek-pf/polybar-forecast/releases/
 ZPLUG_URL="https://raw.githubusercontent.com/zplug/installer/master/installer.zsh"
 ZPLUG_PATH="$HOME/.zplug"
 
-### GRUVBOX MATERIAL GTK ###
-GRUVBOX_MATERIAL_GTK_URL="https://github.com/sainnhe/gruvbox-material-gtk.git"
-GRUVBOX_MATERIAL_GTK_TMP_PATH="$TMP_DIR/gruvbox-material-gtk"
-THEMES_PATH="/usr/share/themes"
-THEME_NAME="Gruvbox-Material-Dark"
-
 # GENIE
 SYSTEMD_GENIE_URL="https://github.com/arkane-systems/genie/releases/download/v1.42/genie-systemd-1.42-1-x86_64.pkg.tar.zst"
 
@@ -106,19 +100,6 @@ if [ ! -d $TPM_DIR ]; then
     echo "Cloning TPM (tmux plugin manager)";
     /usr/bin/sh -c "git clone --quiet $TPM_URL $TPM_DIR"
     echo "TPM installed!"
-fi
-
-### GTK theme ###
-if [ ! -d "$THEMES_PATH/$THEME_NAME" ] && [ ! -d "$GRUVBOX_MATERIAL_GTK_TMP_PATH" ];
-then
-    echo -n "Installing $THEME_NAME into $THEMES_PATH/$THEME_NAME";
-    sudo /usr/bin/sh -c "git clone --quiet "$GRUVBOX_MATERIAL_GTK_URL" \
-        "$GRUVBOX_MATERIAL_GTK_TMP_PATH" && \
-        mv "$GRUVBOX_MATERIAL_GTK_TMP_PATH/themes/*" "$THEMES_PATH" && \
-        rm -rf $GRUVBOX_MATERIAL_GTK_TMP_PATH" &>/dev/null &
-    loading_animation
-    clean_line
-    printf "$THEME_NAME installed!\n"
 fi
 
 ### Polybar forecast ###
