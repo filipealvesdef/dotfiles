@@ -1,0 +1,3 @@
+[submodule "secret-configs"]
+	path = secret-configs
+	url = git@github.com:filipealvesdef/secret-configs.git
