@@ -3,5 +3,6 @@
 	name = Filipe Alves
 [core]
 	editor = nvim
+    autocrlf = false
 [rebase]
 	autosquash = true
