@@ -95,7 +95,7 @@ label-margin-left = 3
 type = custom/script
 tail = true
 format = <label>
-exec = $HOME/dotfiles/polybar/custom-modules/polybar-now-playing/polybar-now-playing.py
+exec = "$DOTFILES_PATH/.config/polybar/custom-modules/polybar-now-playing/polybar-now-playing.py"
 click-right = "kill -USR1 $(pgrep --oldest --parent %pid%)"
 label-padding-right = 4
 
