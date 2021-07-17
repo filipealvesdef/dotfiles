@@ -3,7 +3,7 @@ $DOTFILES_PATH_DEFAULT = "$Env:USERPROFILE\.dotfiles";
 $GITHUB_DOTFILES_BASENAME = 'filipealvesdef/dotfiles'
 $SCOOP_PKG_LIST_DEFAULT = "https://raw.githubusercontent.com/filipealvesdef/dotfiles/master/win/install/package-list";
 # $ARCHWSL_CER = https://github.com/yuk7/ArchWSL/releases/download/21.7.16.0/ArchWSL-AppX_21.7.16.0_x64.cer
-$PULSE_PATH = "$Env:USERPROFILE\scoop\apps\pulseaudio\current\bin"
+$SCOOP_PATH = "$Env:USERPROFILE\scoop\apps"
 
 ### Setting up powershell permissions
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
@@ -35,11 +35,6 @@ foreach ($pkg in (($SCOOP_PKG_LIST -split '\r?\n').Trim())) {
 }
 
 sudo scoop install 'firacode-nf'
-
-# Installing Pulse Service with NSSM
-nssm remove PulseAudio confirm
-$PULSEARGS = "-F $PULSE_PATH\config.pa --exit-idle-time=-1"
-nssm install PulseAudio "$PULSE_PATH\pulseaudio.exe" "$PULSEARGS"
 
 ### Dotfiles setup ###
 $DOTFILES_PATH = Read-Host -Prompt "Choose your dotfiles directory. If it already`
@@ -86,8 +81,38 @@ if (!$IS_USR_BIN_SET) {
 }
 
 ### Symbolic links to Windows dotfiles ###
-Start-Process -FilePath "cmd.exe" -Verb RunAs -ArgumentList "/c", `
-    "$DOTFILES_PATH\win\scripts\mklinks.bat"
+$CMD = "$DOTFILES_PATH\win\scripts\mklinks.bat"
+
+# Add rules for vcxsrv and pulseaudio on windows firewall
+$TARGETS = ("vcxsrv", "pulseaudio")
+foreach ($target in $TARGETS) {
+    # "current" scoop directory is a windows "junction", a kind of hard link
+    # to the real directory. And the windows firewall do not work well with
+    # junctions, therefore I am getting the real paths here
+    $TARGET_PATH = (Get-Item "$SCOOP_PATH\$target\current").Target
+
+    # Remove pre existing rules
+    $CMD += " & netsh advfirewall firewall delete rule name=`"$target.exe`" & "
+
+    if ($target -eq 'pulseaudio') {
+        # Fix the target path for pulseaudio (do not try using += here!)
+        $TARGET_PATH = "$TARGET_PATH\bin"
+
+        # And install the pulse service with NSSM
+        $PULSEARGS = "-F $TARGET_PATH\config.pa --exit-idle-time=-1"
+        $CMD += " nssm remove PulseAudio confirm & " +
+            "nssm install PulseAudio $TARGET_PATH\pulseaudio.exe $PULSEARGS & " +
+            "nssm start PulseAudio & "
+    }
+
+    # Create a new rule allowing public and private network access
+    $CMD += "netsh advfirewall firewall add rule name=`"$target.exe`" dir=in " +
+    "action=allow profile=public,private protocol=tcp edge=deferuser " +
+    "program=`"$TARGET_PATH\$target.exe`""
+}
+
+# Open cmd with admin privilages a single time and execute the payload in $CMD.
+Start-Process -FilePath "cmd.exe" -Verb RunAs -ArgumentList "/c", $CMD
 
 ### Arch Installation ###
 $USERNAME = Read-Host -Prompt 'Enter your WSL username';
