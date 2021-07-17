@@ -57,6 +57,9 @@ if ! yay --version &> /dev/null; then
     rm -rf "$YAY_TMP_DIR";
 fi
 
+### Spotify ###
+curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | gpg --import -
+
 ### General packages ###
 echo "If you want to use an alternative package list, enter its URL here."
 echo -n "To use de default package list, just press enter: "
