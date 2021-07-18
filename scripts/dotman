@@ -19,8 +19,12 @@ DOTFILES_SCRIPT_PATH="scripts"
 DOTFILES_USR_BIN="/usr/bin"
 
 printf "Updating dotfiles symlinks to $(tilde_path $DOTFILES_PATH)\n\n"
-ROOT_FILE_NAMES=($(ls -a $DOTFILES_PATH | grep -E "^\.|$DOTFILES_SCRIPT_PATH" | \
-    grep -Ev "[\.]+$|\.git$" | xargs -n1 printf "%s "));
+ROOT_FILE_NAMES=($(
+    ls -a $DOTFILES_PATH |
+    grep -E "^\.[a-zA-Z0-9]+|$DOTFILES_SCRIPT_PATH" |
+    grep -v "\.git"; ls -a $DOTFILES_PATH | grep ".gitconfig" |
+    xargs -n1 printf "%s "
+))
 
 for ROOT_FILENAME in ${ROOT_FILE_NAMES[@]}; do
     TARGET_PATH="$DOTFILES_PATH/$ROOT_FILENAME";
