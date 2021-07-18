@@ -1,0 +1,7 @@
+#!/usr/bin/zsh
+PACKAGE_LIST_OUT_PATH="$DOTFILES_PATH/install/package-list"
+IGNORE_LIST_PATH="$DOTFILES_PATH/.config/sync-packages/ignore-packages"
+IGNORE_REGEX=$(cat $IGNORE_LIST_PATH | xargs -n1 printf "^%s\$|")
+IGNORE_REGEX=${IGNORE_REGEX:0:-1}
+pacman -Qqe | grep -Ev $(echo $IGNORE_REGEX) > $PACKAGE_LIST_OUT_PATH
+git add -p $PACKAGE_LIST_OUT_PATH
