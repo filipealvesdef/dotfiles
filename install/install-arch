@@ -6,6 +6,7 @@ DOTFILES_BACKUP_PATH="$HOME/.dotfiles-backup"
 DEFAULT_DOTFILES_PATH="$HOME/.dotfiles"
 DOTFILES_URL="https://github.com/filipealvesdef/dotfiles.git"
 PACKAGE_LIST_DEFAULT_URL="https://raw.githubusercontent.com/filipealvesdef/dotfiles/master/install/package-list"
+POST_INSTALL_URL="https://raw.githubusercontent.com/filipealvesdef/dotfiles/master/install/postinstall-archwsl"
 
 ### TPM  ###
 TPM_DIR="$HOME/.tmux/plugins/tpm"
@@ -178,9 +179,14 @@ fi
 echo "Installing genie-systemd"
 curl -Lo "$TMP_DIR/$(basename $SYSTEMD_GENIE_URL)" "$SYSTEMD_GENIE_URL"
 sudo pacman -U "$TMP_DIR/$(basename $SYSTEMD_GENIE_URL)"
-tmux new -d -s "systemd-install" "genie -c 'sudo systemctl mask \
-    systemd-modules-load.service' && tmux kill-session -t systemd-install"
+tmux new -d -s "systemd-install" "genie -c sleep 10 && \
+    tmux kill-session -t systemd-install"
 echo "genie-systemd installed!"
 
-wait;
+# Post install
+POST_INSTALL_SCRIPT_NAME=$(basename $POST_INSTALL_URL)
+curl $POST_INSTALL_URL -o "$HOME/$POST_INSTALL_SCRIPT_NAME" && \
+    chmod +x "$HOME/$POST_INSTALL_SCRIPT_NAME" && \
+    echo "source \"\$HOME/$POST_INSTALL_SCRIPT_NAME\"" >> $HOME/.zshrc
+
 printf "All Done!\n";

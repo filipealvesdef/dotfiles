@@ -1,0 +1,8 @@
+figlet -c "welcome!"
+echo -e "\n\n"
+neofetch
+
+echo "Masking systemd-modules-load.service to avoid genie get stuck on startup"
+sudo systemctl mask systemd-modules-load.service
+head -n -1 "$HOME/.zshrc" > /tmp/.zshrc; mv "/tmp/.zshrc" "$DOTFILES_PATH/.zshrc"
+rm "$(realpath $0)"
