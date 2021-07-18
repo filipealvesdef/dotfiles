@@ -1,11 +1,16 @@
 #!/usr/bin/zsh
 TMP_DIR="/tmp"
 
+tilde_path() {
+    echo "$1" | sed s/${HOME//\//\\\/}/\~/
+}
+
 ### DOTFILES ###
-DOTFILES_BACKUP_PATH="$HOME/.dotfiles-backup"
 DEFAULT_DOTFILES_PATH="$HOME/.dotfiles"
 DOTFILES_URL="https://github.com/filipealvesdef/dotfiles.git"
 PACKAGE_LIST_DEFAULT_URL="https://raw.githubusercontent.com/filipealvesdef/dotfiles/master/install/package-list"
+DOTFILES_BACKUP_PATH="$DOTFILES_PATH/backup"
+BACKUP_DIR="$DOTFILES_BACKUP_PATH/$(date +%s)"
 POST_INSTALL_URL="https://raw.githubusercontent.com/filipealvesdef/dotfiles/master/install/postinstall-archwsl"
 
 ### TPM  ###
@@ -31,10 +36,6 @@ ZPLUG_PATH="$HOME/.zplug"
 
 # GENIE
 SYSTEMD_GENIE_URL="https://github.com/arkane-systems/genie/releases/download/v1.42/genie-systemd-1.42-1-x86_64.pkg.tar.zst"
-
-tilde_path() {
-    echo "$1" | sed s/${HOME//\//\\\/}/\~/
-}
 
 # Optional dotfiles path (useful for wsl installations)
 # If this parameter is given, the script will use this
@@ -78,7 +79,7 @@ sudo usermod -aG docker $USER
 ### z-plug for managing zsh plugins###
 if [ ! -d "$ZPLUG_PATH" ]; then
     echo "Installing zsh plugin manager (zplug)";
-    /usr/bin/sh -c "curl -sL --proto-redir -all,https $ZPLUG_URL | zsh";
+    curl -sL --proto-redir -all,https $ZPLUG_URL | zsh;
     echo "z-plug installed!"
 fi
 
@@ -91,7 +92,7 @@ echo "Vim-Plug installed!"
 ### Tmux plugin manager ###
 if [ ! -d $TPM_DIR ]; then
     echo "Cloning TPM (tmux plugin manager)";
-    /usr/bin/sh -c "git clone --quiet $TPM_URL $TPM_DIR"
+    git clone --quiet "$TPM_URL $TPM_DIR"
     echo "TPM installed!"
 fi
 
@@ -144,7 +145,6 @@ fi
 
 if [ "$DOTFILES_PATH" != "$DEFAULT_DOTFILES_PATH" ]; then
     if [ -d $DEFAULT_DOTFILES_PATH ] || [ -L $DEFAULT_DOTFILES_PATH ]; then
-        BACKUP_DIR="$DOTFILES_BACKUP_PATH/$(date +%s)"
         echo "Moving your old $(tilde_path $DEFAULT_DOTFILES_PATH) diretory"
         echo "to $(tilde_path "$BACKUP_DIR")"
         mkdir -p $BACKUP_DIR
@@ -172,7 +172,6 @@ fi
 if [ -f "$VIM_PLUG_LOADER_PATH" ] && nvim --version &>/dev/null; then
     echo -n "Installing neovim plugins"
     nvim +PlugInstall +qa # Install the plugins
-    nvim +qa              # Install Coc plugins
     printf "Neovim plugins installed!\n"
 fi
 
