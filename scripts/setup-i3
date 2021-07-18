@@ -1,0 +1,4 @@
+cd ~
+picom -b
+feh --bg-center ~/wallpapers/greenfog.jpg
+i3

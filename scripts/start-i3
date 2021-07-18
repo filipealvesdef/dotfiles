@@ -1,4 +1,2 @@
 #!/bin/zsh
-picom -b
-feh --bg-center ~/Downloads/greenfog.jpg
-i3
+tmux new -s "i3" -d "cmd.exe /c start-xserver.bat &>/dev/null & setup-i3"

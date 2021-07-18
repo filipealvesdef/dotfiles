@@ -1,1 +1,2 @@
-start-xserver.bat & arch -c "cd ~; systemd-start-i3"
+@echo off
+arch -c genie -c start-i3
