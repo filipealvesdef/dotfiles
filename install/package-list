@@ -1,6 +1,5 @@
 aws-cli-v2-bin
 chromium
-curl
 daemonize
 dbus-python
 docker
@@ -8,6 +7,7 @@ feh
 figlet
 firefox
 fzf
+genie-systemd
 git-fixup-git
 gruvbox-material-gtk-theme-git
 gtk3
@@ -24,7 +24,6 @@ nerd-fonts-hack
 nvidia
 nvm
 openssh
-openssl
 papirus-icon-theme
 pavucontrol
 picom-jonaburg-git
@@ -39,6 +38,7 @@ sddm
 spotify
 tig
 tmux
+tree
 ttf-font-awesome
 ttf-material-icons-git
 ttf-weather-icons
