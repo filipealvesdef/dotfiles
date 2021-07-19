@@ -34,7 +34,7 @@ for ROOT_FILENAME in ${ROOT_FILE_NAMES[@]}; do
     fi
     for FILENAME in ${FILENAMES[@]}; do
         SRC_PATH="$HOME/$FILENAME"
-        if [ "$ROOT_FILENAME" == "$DOTFILES_SCRIPT_PATH" ]; then
+        if [ "$ROOT_FILENAME" = "$DOTFILES_SCRIPT_PATH" ]; then
             SRC_PATH="$DOTFILES_USR_BIN/$(basename $FILENAME)"
         fi
         SRC_PATH_TILDE=$(tilde_path $SRC_PATH);
@@ -42,7 +42,7 @@ for ROOT_FILENAME in ${ROOT_FILE_NAMES[@]}; do
         TARGET_PATH_TILDE=$(tilde_path $TARGET_PATH);
         if [ -s $SRC_PATH ] || [ -L $SRC_PATH ]; then
             LINK_PATH=$(readlink $SRC_PATH)
-            if [ "$LINK_PATH" == "$TARGET_PATH" ]; then
+            if [ "$LINK_PATH" = "$TARGET_PATH" ]; then
                 echo "[SAME]    $SRC_PATH_TILDE -> $TARGET_PATH_TILDE";
                 print_row
                 continue;
