@@ -65,7 +65,7 @@ function zvm_after_init()
     source /usr/share/fzf/completion.zsh
 }
 
-PS1="%B%F{red}%n%f%b@%B%F{blue}%m%f%b in %B%F{cyan}%~%f%b $(prompt_git)${br}%B$%b "
+PS1='%B%F{red}%n%f%b@%B%F{blue}%m%f%b in %B%F{cyan}%~%f%b $(prompt_git)${br}%B$%b '
 
 # Plugins
 zplug "plugins/git", from:oh-my-zsh
@@ -84,6 +84,7 @@ autoload -Uz compinit
 compinit -i
 zmodload -i zsh/complist
 setopt auto_cd # cd by typing directory name if it's not a command
+setopt PROMPT_SUBST
 setopt auto_menu # automatically use menu completion
 setopt always_to_end # move cursor to end if word had one match
 zstyle ':completion:*' menu select # select completions with arrow keys
