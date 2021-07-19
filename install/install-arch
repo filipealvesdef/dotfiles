@@ -167,7 +167,7 @@ if tmux -V &>/dev/null; then
 fi
 
 ### Install zsh plugins ###
-/usr/bin/zsh -c "zplug install"
+source "$ZPLUG_PATH/init.zsh" && zplug install
 
 ### Install nvim plugins ###
 if [ -f "$VIM_PLUG_LOADER_PATH" ] && nvim --version &>/dev/null; then
