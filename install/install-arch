@@ -11,6 +11,7 @@ DOTFILES_URL="https://github.com/filipealvesdef/dotfiles.git"
 PACKAGE_LIST_DEFAULT_URL="https://raw.githubusercontent.com/filipealvesdef/dotfiles/master/install/package-list"
 DOTFILES_BACKUP_PATH="$DOTFILES_PATH/backup"
 BACKUP_DIR="$DOTFILES_BACKUP_PATH/$(date +%s)"
+SYNC_LINKS_SCRIPT_URL="https://raw.githubusercontent.com/filipealvesdef/dotfiles/master/scripts/sync-links"
 POST_INSTALL_URL="https://raw.githubusercontent.com/filipealvesdef/dotfiles/master/install/postinstall-archwsl"
 
 ### TPM  ###
@@ -155,7 +156,7 @@ if [ "$DOTFILES_PATH" != "$DEFAULT_DOTFILES_PATH" ]; then
 fi
 
 #### Symlinks to dotfiles ###
-/usr/bin/sh -c "$DOTFILES_PATH/scripts/dotman"
+curl $SYNC_LINKS_SCRIPT_URL | zsh
 
 ### Install tmux plugins ###
 if tmux -V &>/dev/null; then

@@ -2,6 +2,7 @@ $USR_BIN = "$Env:USERPROFILE\bin"
 $DOTFILES_PATH_DEFAULT = "$Env:USERPROFILE\.dotfiles";
 $GITHUB_DOTFILES_BASENAME = 'filipealvesdef/dotfiles'
 $SCOOP_PKG_LIST_DEFAULT = "https://raw.githubusercontent.com/filipealvesdef/dotfiles/master/win/install/package-list";
+$SYNC_LINKS_SCRIPT_URL = "https://raw.githubusercontent.com/filipealvesdef/dotfiles/master/win/scripts/sync-links.bat";
 # $ARCHWSL_CER = https://github.com/yuk7/ArchWSL/releases/download/21.7.16.0/ArchWSL-AppX_21.7.16.0_x64.cer
 $SCOOP_PATH = "$Env:USERPROFILE\scoop\apps"
 
@@ -81,7 +82,10 @@ if (!$IS_USR_BIN_SET) {
 }
 
 ### Symbolic links to Windows dotfiles ###
-$CMD = "$DOTFILES_PATH\win\scripts\mklinks.bat"
+$SYNC_LINKS_SCRIPT_FILENAME = $SYNC_LINKS_SCRIPT_URL.Split('/')[-1]
+$SYNC_LINKS_SCRIPT_PATH = "$Env:Temp\$SYNC_LINKS_SCRIPT_FILENAME"
+curl $SYNC_LINKS_SCRIPT_URL -o "$SYNC_LINKS_SCRIPT_PATH"
+$CMD = $SYNC_LINKS_SCRIPT_PATH
 
 # Add rules for vcxsrv and pulseaudio on windows firewall
 $TARGETS = ("vcxsrv", "pulseaudio")
