@@ -1,5 +1,71 @@
 source ~/.zplug/init.zsh
-br=$'\n'
+
+function bindings()
+{
+    bindkey '^J' clear-screen
+
+    # Menu selection
+    bindkey -M menuselect 'h' vi-backward-char
+    bindkey -M menuselect 'k' vi-up-line-or-history
+    bindkey -M menuselect 'l' vi-forward-char
+    bindkey -M menuselect 'j' vi-down-line-or-history
+    bindkey -M menuselect '^[' send-break
+
+    # zvm
+    zvm_bindkey vicmd '^[[H' beginning-of-line # home key
+    zvm_bindkey viins '^[[H' beginning-of-line
+    zvm_bindkey vicmd '^[[1~' beginning-of-line # it can have this code too
+    zvm_bindkey viins '^[[1~' beginning-of-line
+    zvm_bindkey viins '^A' beginning-of-line
+    zvm_bindkey vicmd '^A' beginning-of-line
+
+    zvm_bindkey vicmd '^[[4~' end-of-line # end key
+    zvm_bindkey viins '^[[4~' end-of-line
+    zvm_bindkey vicmd '^[[F' end-of-line # it can have this code too
+    zvm_bindkey viins '^[[F' end-of-line
+    zvm_bindkey viins '^E' end-of-line
+    zvm_bindkey vicmd '^E' end-of-line
+
+    # use the "vi" prefix to partial accept autosuggestions
+    zvm_bindkey viins '^W' vi-forward-word
+    zvm_bindkey vicmd '^W' vi-forward-word
+    zvm_bindkey viins '^[[1;3C' vi-forward-word # alt + right arrow
+    zvm_bindkey vicmd '^[[1;3C' vi-forward-word
+    zvm_bindkey viins '^[[1;5C' vi-forward-word # ctrl + right arrow
+    zvm_bindkey vicmd '^[[1;5C' vi-forward-word
+
+    zvm_bindkey viins '^B' backward-word
+    zvm_bindkey vicmd '^B' backward-word
+    zvm_bindkey viins '^[[1;3D' backward-word # alt + left arrow
+    zvm_bindkey vicmd '^[[1;3D' backward-word
+    zvm_bindkey viins '^[[1;5D' backward-word # ctrl + left arrow
+    zvm_bindkey vicmd '^[[1;5D' backward-word
+
+    zvm_bindkey viins '^[[3~' delete-char # delete key
+    zvm_bindkey vicmd '^[[3~' delete-char
+    zvm_bindkey vicmd '^X' delete-char
+    zvm_bindkey viins '^X' delete-char
+
+    zvm_bindkey vicmd '^?' backward-delete-char # backspace key
+    zvm_bindkey viins '^S' backward-delete-word
+    zvm_bindkey vicmd '^S' backward-delete-word
+
+    zvm_bindkey viins '^D' delete-word
+    zvm_bindkey vicmd '^D' delete-word
+
+    zvm_bindkey vicmd '^H' backward-char
+    zvm_bindkey viins '^H' backward-char
+
+    zvm_bindkey vicmd '^L' forward-char
+    zvm_bindkey viins '^L' forward-char
+
+    zvm_bindkey vicmd '^U' backward-kill-line
+    zvm_bindkey vicmd '^K' kill-line
+
+    zvm_bindkey viins '^Z' undo
+    zvm_bindkey vicmd '^Z' undo
+}
+
 function prompt_git()
 {
     local s='';
@@ -77,8 +143,11 @@ function zvm_after_init()
     # This will load fzf bindings after zvm plugin loads
     source /usr/share/fzf/key-bindings.zsh
     source /usr/share/fzf/completion.zsh
+    bindings
 }
 
+stty -ixon # disables terminal "freezing" when press ctrl+s
+br=$'\n'
 setopt PROMPT_SUBST
 PS1='%B%F{red}%n%f%b@%B%F{blue}%m%f%b in %B%F{cyan}%~%f%b $(prompt_git)${br}%B\
 $(prompt_zvm)%f $%b '
@@ -92,9 +161,6 @@ zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug "zsh-users/zsh-completions"
 zplug load
 
-autoload -Uz history-search-end
-zle -N history-beginning-search-backward-end history-search-end
-zle -N history-beginning-search-forward-end history-search-end
 # zvm config
 ZVM_INSERT_MODE_CURSOR=$ZVM_CURSOR_BLINKING_BLOCK
 ZVM_VI_EDITOR=nvim
@@ -122,12 +188,3 @@ alias lla='ls -la'
 alias cls='unset NEWLINE_BEFORE_PROMPT && clear'
 alias sdi3='systemd-start-i3'
 alias tmux='tmux -2'
-
-# Keybindings
-bindkey '^K' up-line-or-beginning-search
-bindkey '^J' down-line-or-beginning-search
-bindkey '^F' autosuggest-accept
-bindkey -M menuselect 'h' vi-backward-char
-bindkey -M menuselect 'k' vi-up-line-or-history
-bindkey -M menuselect 'l' vi-forward-char
-bindkey -M menuselect 'j' vi-down-line-or-history
