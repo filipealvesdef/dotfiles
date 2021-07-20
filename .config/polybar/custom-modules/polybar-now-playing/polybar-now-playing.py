@@ -18,6 +18,9 @@ update_delay = 0.3
 # (list) : list of chars containing previous, play, pause, next glyphs for media controls in respective order
 control_chars = ['','','','']
 
+# (bool) : Hide when no players are available
+hide_without_players = True
+
 # (dict) : dict of char icons to display as prefix.
 # If player name is available as key, then use the corressponding icon,
 # else default key value.
@@ -192,6 +195,8 @@ def make_visual_len(text, visual_desired_length):
 
 def print_text():
     global display_text, message_display_len, players, player_names, display_prefix, display_suffix
+    if hide_without_players and len(players) == 0:
+        return print("", flush=True)
     scroll()
     print(display_prefix + " " +
        "%%{T%d}" % (font_index) +
