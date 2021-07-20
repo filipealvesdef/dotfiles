@@ -29,11 +29,14 @@ endfunction
 
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
-"
-" Make <CR> auto-select the first completion item and notify coc.nvim to
-" format on enter, <cr> could be remapped by other vim plugin
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" This still use <CR> to confirm selection but only when some popup item was
+" excplicitly selected and do not selected the first item by default, which
+" is not always desirable. Sometimes, I just want insert a line break instead of
+" confirm autocompletion.
+inoremap <expr> <cr> pumvisible() ?
+            \ ( complete_info().selected != -1 ? "\<C-y>" : "\<C-g>u\<CR>" ) :
+            \ "\<CR>"
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.

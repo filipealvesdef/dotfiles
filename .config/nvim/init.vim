@@ -43,6 +43,7 @@ set signcolumn=yes
 set updatetime=100
 set guicursor=i:block
 set clipboard=unnamedplus
+set completeopt=menuone,longest
 
 " Theme
 colorscheme gruvbox
