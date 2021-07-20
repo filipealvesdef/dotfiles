@@ -42,6 +42,7 @@ set shortmess+=c
 set signcolumn=yes
 set updatetime=100
 set guicursor=i:block
+set clipboard=unnamedplus
 
 " Theme
 colorscheme gruvbox
