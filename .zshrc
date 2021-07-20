@@ -58,6 +58,20 @@ function precmd()
     fi
 }
 
+function prompt_zvm()
+{
+    if [ "$ZVM_MODE" = "$ZVM_MODE_INSERT" ]; then
+        echo "[i]"
+    elif [ "$ZVM_MODE" = "$ZVM_MODE_NORMAL" ]; then
+        echo "[n]"
+    elif [ "$ZVM_MODE" = "$ZVM_MODE_VISUAL" ] || \
+        [ "$ZVM_MODE" = "$ZVM_MODE_VISUAL_LINE" ]; then
+        echo "[v]"
+    elif [ "$ZVM_MODE" = "$ZVM_MODE_REPLACE" ]; then
+        echo "[r]"
+    fi
+}
+
 function zvm_after_init()
 {
     # This will load fzf bindings after zvm plugin loads
@@ -65,7 +79,8 @@ function zvm_after_init()
     source /usr/share/fzf/completion.zsh
 }
 
-PS1='%B%F{red}%n%f%b@%B%F{blue}%m%f%b in %B%F{cyan}%~%f%b $(prompt_git)${br}%B$%b '
+PS1='%B%F{red}%n%f%b@%B%F{blue}%m%f%b in %B%F{cyan}%~%f%b $(prompt_git)${br}%B\
+$(prompt_zvm)%f $%b '
 
 # Plugins
 zplug "plugins/git", from:oh-my-zsh
