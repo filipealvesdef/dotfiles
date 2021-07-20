@@ -79,6 +79,7 @@ function zvm_after_init()
     source /usr/share/fzf/completion.zsh
 }
 
+setopt PROMPT_SUBST
 PS1='%B%F{red}%n%f%b@%B%F{blue}%m%f%b in %B%F{cyan}%~%f%b $(prompt_git)${br}%B\
 $(prompt_zvm)%f $%b '
 
@@ -94,12 +95,17 @@ zplug load
 autoload -Uz history-search-end
 zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
+# zvm config
+ZVM_INSERT_MODE_CURSOR=$ZVM_CURSOR_BLINKING_BLOCK
+ZVM_VI_EDITOR=nvim
+ZVM_KEYTIMEOUT=0.1
+ZVM_ESCAPE_KEYTIMEOUT=0.1
 
+# completion
 autoload -Uz compinit
 compinit -i
 zmodload -i zsh/complist
 setopt auto_cd # cd by typing directory name if it's not a command
-setopt PROMPT_SUBST
 setopt auto_menu # automatically use menu completion
 setopt always_to_end # move cursor to end if word had one match
 zstyle ':completion:*' menu select # select completions with arrow keys
