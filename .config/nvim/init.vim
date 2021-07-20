@@ -34,7 +34,6 @@ set cursorline
 set smartindent
 set scrolloff=20
 set noswapfile
-set nohls
 set incsearch
 set hidden
 set nobackup
@@ -42,6 +41,7 @@ set nowritebackup
 set shortmess+=c
 set signcolumn=yes
 set updatetime=100
+set guicursor=i:block
 
 " Theme
 colorscheme gruvbox
