@@ -153,12 +153,10 @@ PS1='%B%F{red}%n%f%b@%B%F{blue}%m%f%b in %B%F{cyan}%~%f%b $(prompt_git)${br}%B\
 $(prompt_zvm)%f $%b '
 
 # Plugins
-zplug "plugins/git", from:oh-my-zsh
 zplug "jeffreytse/zsh-vi-mode"
 zplug "unixorn/fzf-zsh-plugin"
 zplug "zsh-users/zsh-autosuggestions"
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
-zplug "zsh-users/zsh-completions"
 zplug load
 
 # zvm config
