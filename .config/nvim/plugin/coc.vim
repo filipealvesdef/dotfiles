@@ -1,7 +1,3 @@
-" Coc settings
-nmap <Leader>gd <Plug>(coc-definition)
-nmap <Leader>gr <Plug>(coc-references)
-
 " Coc Snippets
 " Use <tab> for jump to next placeholder, it's default of coc.nvim
 let g:coc_snippet_next = '<tab>'
