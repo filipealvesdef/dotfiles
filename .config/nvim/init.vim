@@ -57,8 +57,8 @@ map <silent><C-H> :bp<CR>
 map <silent><C-L> :bn<CR>
 map <silent><C-X> :bd<CR>
 " allows to navigate in the popup menu with j and k keys
-inoremap <silent><expr> j pumvisible() ? "\<Down>" : "j"
-inoremap <silent><expr> k pumvisible() ? "\<Up>" : "k"
+inoremap <silent><expr> <C-j> pumvisible() ? "\<Down>" : "<C-j>"
+inoremap <silent><expr> <C-k> pumvisible() ? "\<Up>" : "<C-k>"
 " save all buffers and close current tab
 map <silent><Leader>tq :wa<CR>:tabclose<CR>
 
