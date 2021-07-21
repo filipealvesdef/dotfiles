@@ -17,73 +17,84 @@ BACKUP_DIR="$DOTFILES_BACKUP_PATH/$(date +%s)"
 BACKUP_DIR_TILDE=$(tilde_path $BACKUP_DIR)
 DOTFILES_SCRIPT_PATH="scripts"
 DOTFILES_USR_BIN="/usr/bin"
-SSH_HOME_PATH="$HOME/.ssh"
-SSH_DOTFILES_PATH="$DOTFILES_PATH/.ssh"
 DOTFILES_WALLPAPERS_DIR="wallpapers"
+SSH_DIR=".ssh"
+DOTFILES_PRIVATE_DIR="private"
 
-printf "Updating dotfiles symlinks to $(tilde_path $DOTFILES_PATH)\n\n"
-ROOT_FILE_NAMES=($(
-    ls -a $DOTFILES_PATH |
-    grep -E "^\.[a-zA-Z0-9]+|$DOTFILES_SCRIPT_PATH|$DOTFILES_WALLPAPERS_DIR" |
-    grep -Ev "\.git|\.ssh$"; ls -a $DOTFILES_PATH | grep ".gitconfig" |
-    xargs -n1 printf "%s "
-))
+function synclinks()
+{
+    printf "Updating dotfiles symlinks to $(tilde_path $DOTFILES_PATH)\n\n"
+    ROOT_FILE_NAMES=($(
+        ls -a $DOTFILES_PATH |
+        grep -E "^\.[a-zA-Z0-9]+|$DOTFILES_SCRIPT_PATH|$DOTFILES_WALLPAPERS_DIR" |
+        grep -Ev "\.git|\.ssh$"; ls -a $DOTFILES_PATH | grep ".gitconfig" |
+        xargs -n1 printf "%s "
+    ))
 
-for ROOT_FILENAME in ${ROOT_FILE_NAMES[@]}; do
-    TARGET_PATH="$DOTFILES_PATH/$ROOT_FILENAME";
-    FILENAMES=("$ROOT_FILENAME")
-    if [ -d $TARGET_PATH ]; then
-        FILENAMES=($(ls $TARGET_PATH | xargs -n1 printf "$ROOT_FILENAME/%s "));
-    fi
-    for FILENAME in ${FILENAMES[@]}; do
-        SRC_PATH="$HOME/$FILENAME"
-        if [ "$ROOT_FILENAME" = "$DOTFILES_SCRIPT_PATH" ]; then
-            SRC_PATH="$DOTFILES_USR_BIN/$(basename $FILENAME)"
+    for ROOT_FILENAME in ${ROOT_FILE_NAMES[@]}; do
+        TARGET_PATH="$DOTFILES_PATH/$ROOT_FILENAME";
+        FILENAMES=("$ROOT_FILENAME")
+        if [ -d $TARGET_PATH ]; then
+            FILENAMES=($(ls $TARGET_PATH | xargs -n1 printf "$ROOT_FILENAME/%s "));
         fi
-        SRC_PATH_TILDE=$(tilde_path $SRC_PATH);
-        TARGET_PATH="$DOTFILES_PATH/$FILENAME"
-        TARGET_PATH_TILDE=$(tilde_path $TARGET_PATH);
-        if [ -s $SRC_PATH ] || [ -L $SRC_PATH ]; then
-            LINK_PATH=$(readlink $SRC_PATH)
-            if [ "$LINK_PATH" = "$TARGET_PATH" ]; then
-                echo "[SAME]    $SRC_PATH_TILDE -> $TARGET_PATH_TILDE";
-                print_row
-                continue;
-            else
-                if [ -d "$DOTFILES_PATH/$ROOT_FILENAME" ]; then
-                    mkdir -p "$BACKUP_DIR/$ROOT_FILENAME";
-                fi
-                MV="mv $SRC_PATH $BACKUP_DIR/$FILENAME &>/dev/null";
-                eval "$MV || sudo $MV";
-                printf "[BACKUP]  $SRC_PATH_TILDE -> $TARGET_PATH_TILDE\n"
-                printf "          (moved to $BACKUP_DIR_TILDE/$FILENAME)\n";
+        for FILENAME in ${FILENAMES[@]}; do
+            SRC_PATH="$HOME/$FILENAME"
+            if [ "$ROOT_FILENAME" = "$DOTFILES_SCRIPT_PATH" ]; then
+                SRC_PATH="$DOTFILES_USR_BIN/$(basename $FILENAME)"
             fi
-            printf "[UPDATED] ";
-        else
-            printf "[NEW]    ";
-        fi
-        LN="ln -s $TARGET_PATH $SRC_PATH &>/dev/null"
-        mkdir -p $(dirname $SRC_PATH);
-        eval "$LN || sudo $LN";
-        printf "$SRC_PATH_TILDE -> $TARGET_PATH_TILDE\n"
-        print_row
+            SRC_PATH_TILDE=$(tilde_path $SRC_PATH);
+            TARGET_PATH="$DOTFILES_PATH/$FILENAME"
+            TARGET_PATH_TILDE=$(tilde_path $TARGET_PATH);
+            if [ -s $SRC_PATH ] || [ -L $SRC_PATH ]; then
+                LINK_PATH=$(readlink $SRC_PATH)
+                if [ "$LINK_PATH" = "$TARGET_PATH" ]; then
+                    echo "[SAME]    $SRC_PATH_TILDE -> $TARGET_PATH_TILDE";
+                    print_row
+                    continue;
+                else
+                    if [ -d "$DOTFILES_PATH/$ROOT_FILENAME" ]; then
+                        mkdir -p "$BACKUP_DIR/$ROOT_FILENAME";
+                    fi
+                    MV="mv $SRC_PATH $BACKUP_DIR/$FILENAME &>/dev/null";
+                    eval "$MV || sudo $MV";
+                    printf "[BACKUP]  $SRC_PATH_TILDE -> $TARGET_PATH_TILDE\n"
+                    printf "          (moved to $BACKUP_DIR_TILDE/$FILENAME)\n";
+                fi
+                printf "[UPDATED] ";
+            else
+                printf "[NEW]    ";
+            fi
+            LN="ln -s $TARGET_PATH $SRC_PATH &>/dev/null"
+            mkdir -p $(dirname $SRC_PATH);
+            eval "$LN || sudo $LN";
+            printf "$SRC_PATH_TILDE -> $TARGET_PATH_TILDE\n"
+            print_row
+        done
     done
-done
 
-# Copy all files from .dotfiles/.ssh to /home/.ssh
-SSH_DOTFILES=($(ls $SSH_DOTFILES_PATH))
-if [ ! -z "$SSH_DOTFILES" ]; then
-    mkdir -p "$SSH_HOME_PATH"
-    mkdir -p "$BACKUP_DIR/.ssh"
-    for FILE in ${SSH_DOTFILES[@]}; do
-        mv "$SSH_HOME_PATH/$FILE" "$BACKUP_DIR/.ssh/$FILE" &>/dev/null;
-        cp "$SSH_DOTFILES_PATH/$FILE" "$SSH_HOME_PATH/$FILE"
-        if [ "$FILE" = "config" ] || [ "$FILE" = "known_hosts" ]; then
-            chmod 644 "$SSH_HOME_PATH/$FILE"
-        else
-            chmod 600 "$SSH_HOME_PATH/$FILE"
-        fi
-    done
+    # Copy all files from .dotfiles/.ssh to /home/.ssh
+    SSH_DOTFILES_PATH="$DOTFILES_PATH/$SSH_DIR"
+    SSH_HOME_PATH="$HOME/$SSH_DIR"
+    SSH_DOTFILES=($(ls $SSH_DOTFILES_PATH))
+    if [ ! -z "$SSH_DOTFILES" ]; then
+        mkdir -p "$SSH_HOME_PATH"
+        mkdir -p "$BACKUP_DIR/$SSH_DIR"
+        for FILE in ${SSH_DOTFILES[@]}; do
+            mv "$SSH_HOME_PATH/$FILE" "$BACKUP_DIR/$SSH_DIR/$FILE" &>/dev/null;
+            cp "$SSH_DOTFILES_PATH/$FILE" "$SSH_HOME_PATH/$FILE"
+            if [ "$FILE" = "config" ] || [ "$FILE" = "known_hosts" ]; then
+                chmod 644 "$SSH_HOME_PATH/$FILE"
+            else
+                chmod 600 "$SSH_HOME_PATH/$FILE"
+            fi
+        done
+    fi
+}
+
+synclinks
+ls "$DOTFILES_PATH/$DOTFILES_PRIVATE_DIR" &>/dev/null
+if [ "$?" -eq 0 ]; then
+    DOTFILES_PATH+="/$DOTFILES_PRIVATE_DIR"
+    synclinks
 fi
-
 printf "Symlinks to dotfiles updated!\n";
