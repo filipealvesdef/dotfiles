@@ -19,11 +19,12 @@ DOTFILES_SCRIPT_PATH="scripts"
 DOTFILES_USR_BIN="/usr/bin"
 SSH_HOME_PATH="$HOME/.ssh"
 SSH_DOTFILES_PATH="$DOTFILES_PATH/.ssh"
+DOTFILES_WALLPAPERS_DIR="wallpapers"
 
 printf "Updating dotfiles symlinks to $(tilde_path $DOTFILES_PATH)\n\n"
 ROOT_FILE_NAMES=($(
     ls -a $DOTFILES_PATH |
-    grep -E "^\.[a-zA-Z0-9]+|$DOTFILES_SCRIPT_PATH" |
+    grep -E "^\.[a-zA-Z0-9]+|$DOTFILES_SCRIPT_PATH|$DOTFILES_WALLPAPERS_DIR" |
     grep -Ev "\.git|\.ssh$"; ls -a $DOTFILES_PATH | grep ".gitconfig" |
     xargs -n1 printf "%s "
 ))
