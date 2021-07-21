@@ -13,6 +13,7 @@ gtk3
 htop
 i3-gaps
 kitty
+maim
 man-db
 man-pages
 mpd
@@ -35,6 +36,7 @@ ranger
 rofi
 sddm
 spotify
+sxhkd
 tig
 tmux
 tree
@@ -44,3 +46,4 @@ ttf-weather-icons
 unzip
 wget
 xclip
+xorg-xev

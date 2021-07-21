@@ -1,2 +1,3 @@
 backup
 default.target.wants
+graphical.target.wants

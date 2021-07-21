@@ -1,0 +1,25 @@
+### Media keys ###
+XF86AudioPlay
+    playerctl play-pause
+
+XF86Audio{Prev,Next}
+    playerctl {previous,next}
+
+XF86Audio{Prev,Next}
+    playerctl {previous,next}
+
+XF86AudioMute
+    pactl set-sink-mute @DEFAULT_SINK@ toggle
+
+XF86Audio{Lower,Raise}Volume
+    pactl set-sink-volume @DEFAULT_SINK@ {-1%,+1%}
+
+
+### Screenshots ###
+alt + shift + s; alt + shift + s
+    maim | xclip -selection clipboard -t image/png;\
+    xclip -o -selection clipboard > "/tmp/$(date +%s).png"
+
+alt + shift + s; alt + shift + a
+    maim -s | xclip -selection clipboard -t image/png;\
+    xclip -o -selection clipboard > "/tmp/$(date +%s).png"
