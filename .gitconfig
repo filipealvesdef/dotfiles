@@ -1,0 +1,10 @@
+[user]
+    email = filipe.alvesdefernando@hotmail.com
+    name = Filipe Alves
+[color]
+    diff = always
+[core]
+    editor = nvim
+    autocrlf = false
+[rebase]
+    autosquash = true
