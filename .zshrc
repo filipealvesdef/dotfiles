@@ -165,7 +165,6 @@ $(prompt_zvm)%f $%b '
 # Plugins
 zplug "Aloxaf/fzf-tab"
 zplug "jeffreytse/zsh-vi-mode"
-zplug "unixorn/fzf-zsh-plugin"
 zplug "zsh-users/zsh-autosuggestions"
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug load
