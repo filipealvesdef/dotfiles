@@ -3,11 +3,13 @@ chromium
 daemonize
 dbus-python
 docker
+dunst
 feh
 figlet
 firefox
 fzf
 git-fixup-git
+git-secret
 gruvbox-material-gtk-theme-git
 gtk3
 htop
@@ -17,6 +19,7 @@ maim
 man-db
 man-pages
 mpd
+ncmpcpp
 neofetch
 neovim
 nerd-fonts-fira-code
@@ -33,6 +36,7 @@ pulseaudio
 python
 python-pip
 ranger
+ripgrep
 rofi
 sddm
 spotify
@@ -43,6 +47,7 @@ tree
 ttf-font-awesome
 ttf-material-icons-git
 ttf-weather-icons
+tty-clock
 unzip
 wget
 xclip
