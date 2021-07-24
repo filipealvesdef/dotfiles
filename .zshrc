@@ -34,12 +34,12 @@ function bindings()
     zvm_bindkey viins '^[[1;5C' vi-forward-word # ctrl + right arrow
     zvm_bindkey vicmd '^[[1;5C' vi-forward-word
 
-    zvm_bindkey viins '^B' backward-word
-    zvm_bindkey vicmd '^B' backward-word
-    zvm_bindkey viins '^[[1;3D' backward-word # alt + left arrow
-    zvm_bindkey vicmd '^[[1;3D' backward-word
-    zvm_bindkey viins '^[[1;5D' backward-word # ctrl + left arrow
-    zvm_bindkey vicmd '^[[1;5D' backward-word
+    zvm_bindkey viins '^B' vi-backward-word
+    zvm_bindkey vicmd '^B' vi-backward-word
+    zvm_bindkey viins '^[[1;3D' vi-backward-word # alt + left arrow
+    zvm_bindkey vicmd '^[[1;3D' vi-backward-word
+    zvm_bindkey viins '^[[1;5D' vi-backward-word # ctrl + left arrow
+    zvm_bindkey vicmd '^[[1;5D' vi-backward-word
 
     zvm_bindkey viins '^[[3~' delete-char # delete key
     zvm_bindkey vicmd '^[[3~' delete-char
