@@ -24,7 +24,8 @@ primary = #ffb52a
 alert = #bd2c40
 dark_green = #ebdbb2
 
-[bar/top]
+[bar/top_left]
+monitor = DP-4
 width = 100%
 height = 30
 fixed-center = true
@@ -40,6 +41,29 @@ font-4 = Hack:style=Solid:pixelsize=9;2
 
 modules-left = menu i3 xwindow
 modules-center = eth filesystem memory cpu
+modules-right = now-playing pulseaudio weather date
+
+tray-position = right
+tray-padding = 2
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+[bar/top_right]
+monitor = DP-2
+width = 100%
+height = 30
+fixed-center = true
+background = ${colors.background}
+foreground = ${colors.dark_green}
+
+line-size = 1
+font-0 = "FuraCode Nerd Font:pixelsize=12;2"
+font-1 = Weather Icons:size=12;2
+font-2 = "Font Awesome 5 Free:style=Solid:pixelsize=9;2"
+font-3 = "Font Awesome 5 Free:style=Solid:pixelsize=12;2"
+font-4 = Hack:style=Solid:pixelsize=9;2
+
+modules-left = menu i3 xwindow
 modules-right = now-playing pulseaudio weather date
 
 tray-position = right
@@ -117,6 +141,7 @@ label-urgent-foreground = ${colors.cyan}
 label-focused-padding = 1
 label-unfocused-padding = 1
 label-urgent-padding = 1
+label-visible-padding-right = 1
 
 [module/mpd]
 type = internal/mpd
