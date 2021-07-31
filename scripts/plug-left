@@ -1,0 +1,2 @@
+xrandr --output DP-4 --rate 144 --mode 2560x1440 --primary --left-of DP-2 &
+plug-monitor-resets
