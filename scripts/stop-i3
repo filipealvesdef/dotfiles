@@ -1,3 +1,0 @@
-#!/bin/zsh
-taskkill.exe /IM "vcxsrv.exe" /F
-tmux kill-session -t "i3"
