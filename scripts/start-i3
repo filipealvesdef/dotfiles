@@ -1,0 +1,2 @@
+#!/bin/zsh
+tmux new -s "i3" -d "cmd.exe /c start-xserver.bat &>/dev/null & setup-i3"

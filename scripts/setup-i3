@@ -1,0 +1,5 @@
+cd ~
+picom -b
+feh --bg-center ~/wallpapers/greenfog.jpg
+systemctl --user start sxhkd.service
+i3
