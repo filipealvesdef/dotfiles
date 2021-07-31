@@ -1,0 +1,15 @@
+#!/bin/bash
+cat "$(dirname $0)/pacman.example.conf" > /etc/pacman.conf
+
+pacman-key --init
+pacman-key --populate
+#pacman-key --refresh-keys
+pacman -Sy archlinux-keyring
+pacman -Syyu
+pacman -S zsh
+
+groupadd sudo
+USERNAME=$1
+echo "%sudo ALL=(ALL) ALL" >> /etc/sudoers
+useradd -m -G sudo -s /bin/zsh $USERNAME
+passwd $USERNAME
