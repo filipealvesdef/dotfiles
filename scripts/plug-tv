@@ -1,1 +1,1 @@
-xrandr --output HDMI-0 --mode 3840x2160 --rate 60 --right-of DP-2
+xrandr --output HDMI-0 --mode 3840x2160 --rate 60 --right-of DP-2 & plug-monitor-resets
