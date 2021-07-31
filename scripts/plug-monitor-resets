@@ -1,0 +1,3 @@
+picom -b --experimental-backends 2>/dev/null
+polybar-launch
+set-bg
