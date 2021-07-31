@@ -1,0 +1,6 @@
+plug-left
+plug-right
+TV_ON=$(xrandr | grep 'HDMI-0 connected 3840x2160');
+if [ ! "$TV_ON" = "" ]; then
+    plug-tv
+fi
