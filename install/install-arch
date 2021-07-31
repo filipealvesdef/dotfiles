@@ -8,10 +8,11 @@ tilde_path() {
 ### DOTFILES ###
 DEFAULT_DOTFILES_PATH="$HOME/.dotfiles"
 DOTFILES_URL="https://github.com/filipealvesdef/dotfiles.git"
-PACKAGE_LIST_DEFAULT_URL="https://raw.githubusercontent.com/filipealvesdef/dotfiles/master/install/package-list"
+PACKAGE_LIST_DEFAULT_URL="https://raw.githubusercontent.com/filipealvesdef/dotfiles/wsl/install/package-list"
 DOTFILES_BACKUP_PATH="$DOTFILES_PATH/backup"
 BACKUP_DIR="$DOTFILES_BACKUP_PATH/$(date +%s)"
 SYNC_LINKS_SCRIPT_URL="https://raw.githubusercontent.com/filipealvesdef/dotfiles/master/scripts/sync-links"
+POST_INSTALL_URL="https://raw.githubusercontent.com/filipealvesdef/dotfiles/wsl/install/postinstall-archwsl"
 
 ### TPM  ###
 TPM_DIR="$HOME/.tmux/plugins/tpm"
@@ -33,6 +34,9 @@ POLYBAR_FORECAST_BIN_URL="https://github.com/kamek-pf/polybar-forecast/releases/
 ### ZPLUG ###
 ZPLUG_URL="https://raw.githubusercontent.com/zplug/installer/master/installer.zsh"
 ZPLUG_PATH="$HOME/.zplug"
+
+# GENIE
+SYSTEMD_GENIE_URL="https://github.com/arkane-systems/genie/releases/download/v1.42/genie-systemd-1.42-1-x86_64.pkg.tar.zst"
 
 # Optional dotfiles path (useful for wsl installations)
 # If this parameter is given, the script will use this
@@ -171,5 +175,18 @@ if [ -f "$VIM_PLUG_LOADER_PATH" ] && nvim --version &>/dev/null; then
     nvim +PlugInstall +qa # Install the plugins
     printf "Neovim plugins installed!\n"
 fi
+
+echo "Installing genie-systemd"
+curl -Lo "$TMP_DIR/$(basename $SYSTEMD_GENIE_URL)" "$SYSTEMD_GENIE_URL"
+sudo pacman -U "$TMP_DIR/$(basename $SYSTEMD_GENIE_URL)"
+tmux new -d -s "systemd-install" "genie -c sleep 10 && \
+    tmux kill-session -t systemd-install"
+echo "genie-systemd installed!"
+
+# Post install
+POST_INSTALL_SCRIPT_NAME=$(basename $POST_INSTALL_URL)
+curl $POST_INSTALL_URL -o "$HOME/$POST_INSTALL_SCRIPT_NAME" && \
+    chmod +x "$HOME/$POST_INSTALL_SCRIPT_NAME" && \
+    echo "source \"\$HOME/$POST_INSTALL_SCRIPT_NAME\"" >> $HOME/.zshrc
 
 printf "All Done!\n";
