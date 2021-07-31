@@ -134,7 +134,7 @@ bindsym Mod1+0x5b mode "resize"
 
 for_window [class="Pavucontrol"] floating enable, resize set 400px 240px, move position 2140px 40px
 
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+exec_always --no-startup-id polybar-launch
 
 # SET GAPS
 gaps inner 15
