@@ -7,7 +7,7 @@ export PATH=$PATH:$HOME/.local/bin
 export DOTFILES_PATH="$HOME/.dotfiles"
 
 CONFIG_DIR="$HOME/.config"
-TO_EXPORT=("broadlink" "yeelight" )
+TO_EXPORT=("broadlink" "sonoff" "yeelight" )
 for dir in "${TO_EXPORT[@]}"; do
     CONFIG_PATH="$CONFIG_DIR/$dir/config"
     export $(grep -v '^#' $CONFIG_PATH | xargs)
