@@ -1,0 +1,1 @@
+echo -e "$TV_MUTE" >> "$BROADLINK_FIFO_PATH"
