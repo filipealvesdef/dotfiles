@@ -1,4 +1,7 @@
 broadlink
 yeelight
+govee_api
+AWSIoTPythonSDK
+colour
 requests
 pycryptodome
