@@ -1,0 +1,3 @@
+### General config ###
+BROADLINK_FIFO_PATH="/tmp/broadlink.fifo"
+BROADLINK_ADDR="192.168.15.3"
