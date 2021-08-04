@@ -1,0 +1,6 @@
+LEFT_ON=$(xrandr | grep 'DP-4 connected primary 2560x1440');
+if [ ! "$LEFT_ON" = "" ]; then
+    unplug-left
+else
+    plug-left
+fi

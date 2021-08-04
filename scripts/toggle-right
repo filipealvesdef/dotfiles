@@ -1,0 +1,6 @@
+RIGHT_ON=$(xrandr | grep 'DP-2 connected 2560x1440');
+if [ ! "$RIGHT_ON" = "" ]; then
+    unplug-right
+else
+    plug-right
+fi
