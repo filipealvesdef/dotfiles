@@ -1,0 +1,2 @@
+enable-audio-tv
+pactl set-default-sink "alsa_output.$TV_AUDIO_OUT.$TV_AUDIO_OUT_MODE"

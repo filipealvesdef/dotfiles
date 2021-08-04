@@ -1,0 +1,6 @@
+PHONE_OUT=$(pactl list sinks short | grep -i running | grep -i "$PHONE_AUDIO_OUT")
+if [ ! "$PHONE_OUT" = "" ]; then
+    audio-tv
+else
+    audio-phone
+fi
