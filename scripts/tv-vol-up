@@ -1,0 +1,1 @@
+echo -e "$TV_VOL_UP" >> "$BROADLINK_FIFO_PATH"
