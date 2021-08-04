@@ -23,3 +23,8 @@ alt + shift + s; alt + shift + s
 alt + shift + s; alt + shift + a
     maim -s | xclip -selection clipboard -t image/png;\
     xclip -o -selection clipboard > "/tmp/$(date +%s).png"
+
+
+### Displays ###
+XF86Calculator
+    toggle-monitors
