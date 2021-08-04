@@ -1,0 +1,1 @@
+pactl set-card-profile "alsa_card.$TV_AUDIO_OUT" off

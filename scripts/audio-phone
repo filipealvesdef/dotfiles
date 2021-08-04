@@ -1,0 +1,2 @@
+disable-audio-tv
+pactl set-default-sink "alsa_output.$PHONE_AUDIO_OUT.$PHONE_AUDIO_OUT_MODE"

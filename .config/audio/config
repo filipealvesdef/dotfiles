@@ -1,0 +1,5 @@
+TV_AUDIO_OUT="pci-0000_01_00.1"
+TV_AUDIO_OUT_MODE="hdmi-stereo-extra1"
+
+PHONE_AUDIO_OUT="usb-Focusrite_Scarlett_2i2_USB-00"
+PHONE_AUDIO_OUT_MODE="analog-stereo"
