@@ -42,3 +42,8 @@ ctrl + shift + XF86Audio{Lower,Raise}Volume
 
 ctrl + shift + XF86AudioMute
     mute-tv
+
+
+### Audio ###
+ctrl + alt + XF86AudioMute
+    toggle-audio
