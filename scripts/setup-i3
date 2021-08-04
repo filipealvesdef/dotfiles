@@ -1,5 +1,5 @@
 cd ~
 picom -b
-feh --bg-center ~/wallpapers/greenfog.jpg
+set-bg
 systemctl --user start sxhkd.service
 i3
