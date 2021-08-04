@@ -1,0 +1,8 @@
+#!/usr/bin/python
+import os
+import yeelight
+
+addr = os.environ['YEELIGHT_ADDR']
+b = yeelight.Bulb(addr)
+b.turn_off()
+

@@ -1,0 +1,10 @@
+[Unit]
+Description=Broadlink sender
+
+[Service]
+Type=simple
+EnvironmentFile=%h/.config/broadlink/config
+ExecStart=/usr/bin/broadlink_sender
+
+[Install]
+WantedBy=default.target

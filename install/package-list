@@ -27,6 +27,7 @@ nerd-fonts-hack
 nvidia
 nvm
 openssh
+paperkey
 papirus-icon-theme
 pavucontrol
 picom-jonaburg-git
@@ -35,6 +36,7 @@ polybar
 pulseaudio
 python
 python-pip
+qrencode
 ranger
 ripgrep
 rofi
@@ -52,3 +54,4 @@ unzip
 wget
 xclip
 xorg-xev
+zbar

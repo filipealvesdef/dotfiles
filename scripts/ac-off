@@ -1,0 +1,1 @@
+echo -e "$AC_OFF" >> "$BROADLINK_FIFO_PATH"
