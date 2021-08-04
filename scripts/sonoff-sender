@@ -1,0 +1,46 @@
+#!/usr/bin/python
+import json
+import time
+import argparse
+import requests
+
+from base64 import b64encode
+from Crypto.Random import get_random_bytes
+from Crypto.Hash import MD5
+from Crypto.Cipher import AES
+from Crypto.Util.Padding import pad
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--addr', help='ip address of a sonoff on your local network')
+parser.add_argument('--api-key', help='API key')
+parser.add_argument('--on', default=False, action='store_true', help='state')
+args = parser.parse_args()
+
+state = 'off'
+if args.on:
+    state = 'on'
+
+hash = MD5.new()
+hash.update(bytes(args.api_key, 'utf-8'))
+key = hash.digest()
+iv = get_random_bytes(16)
+
+cipher = AES.new(key, AES.MODE_CBC, iv=iv)
+padded = pad(bytes(json.dumps({'switch': state}), 'utf-8'), AES.block_size)
+ciphertext = cipher.encrypt(padded)
+
+requests.post(
+    f'http://{args.addr}:8081/zeroconf/switch',
+    headers={
+        'Content-Type': 'application/json;charset=UTF-8',
+        'Accept': 'application/json',
+    },
+    data=json.dumps({
+        'sequence': str(int(time.time() * 1000)),
+        'deviceid': None,
+        'selfApikey': '123',
+        'iv': b64encode(iv).decode('utf-8'),
+        'encrypt': True,
+        'data': b64encode(ciphertext).decode('utf-8'),
+    })
+)

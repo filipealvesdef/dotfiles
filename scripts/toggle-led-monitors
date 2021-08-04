@@ -1,0 +1,1 @@
+echo "$LED_ADDR_MONITORS" >> "$GOVEE_FIFO_PATH"
