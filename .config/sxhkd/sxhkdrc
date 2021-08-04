@@ -25,6 +25,14 @@ alt + shift + s; alt + shift + a
     xclip -o -selection clipboard > "/tmp/$(date +%s).png"
 
 
+### lock/unlock ###
+ctrl + shift + End
+    afk
+
+ctrl + End
+    cfk
+
+
 ### tv ###
 ctrl + shift + XF86Calculator
     power-tv
