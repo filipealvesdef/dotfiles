@@ -1,6 +1,6 @@
 {
     power-tv
-    lights-on
     sleep 0.3
+    lights-on
 } &
 plug-monitors
