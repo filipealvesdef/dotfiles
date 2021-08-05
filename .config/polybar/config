@@ -170,7 +170,7 @@ label = %{T3}%{T5} MEM: %gb_used%   %{T-}
 
 [module/eth]
 type = internal/network
-interface = eth0
+interface = eno2
 interval = 3.0
 format-connected-prefix = " "
 format-connected-prefix-foreground = ${colors.foreground-alt}
