@@ -4,3 +4,4 @@
     power-tv
 } &
 unplug-monitors
+playerctl pause
