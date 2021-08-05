@@ -1,5 +1,5 @@
 cd ~
 picom -b
 set-bg
-systemctl --user start sxhkd.service
+sxhkd &
 i3
