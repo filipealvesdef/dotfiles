@@ -25,20 +25,12 @@ alt + shift + s; alt + shift + a
     xclip -o -selection clipboard > "/tmp/$(date +%s).png"
 
 
-### lock/unlock ###
-ctrl + shift + End
-    afk
-
-ctrl + End
-    cfk
-
-
 ### tv ###
 ctrl + shift + XF86Calculator
-    power-tv
+    ttv
 
 ctrl + shift + XF86Audio{Lower,Raise}Volume
-    {tv-vol-down,tv-vol-up}
+    {tvd,tvu}
 
 ctrl + shift + XF86AudioMute
-    mute-tv
+    mtv
