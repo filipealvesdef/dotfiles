@@ -2,7 +2,7 @@ let g:coc_global_extensions = [
    \ 'coc-json',
    \ 'coc-tsserver',
    \ 'coc-html',
-   \ 'coc-python',
+   \ 'coc-pyright',
    \ 'coc-clangd',
 \]
 
