@@ -1,1 +1,0 @@
-echo "$LED_ADDR_TABLE_B" >> "$GOVEE_FIFO_PATH"

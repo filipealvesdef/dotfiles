@@ -1,1 +1,0 @@
-sonoff-sender --addr "$LAVA_LAMP_ADDR" --api-key "$LAVA_LAMP_API_KEY" --on

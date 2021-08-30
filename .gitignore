@@ -1,3 +1,4 @@
 backup
 default.target.wants
 graphical.target.wants
+__pycache__

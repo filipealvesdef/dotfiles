@@ -1,7 +1,2 @@
-broadlink
-yeelight
-govee_api
-AWSIoTPythonSDK
-colour
-requests
-pycryptodome
+pysmarthome-cli
+pc-actions-handler

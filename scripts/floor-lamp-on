@@ -1,1 +1,0 @@
-echo -e "$FLOOR_LAMP_ON" >> "$BROADLINK_FIFO_PATH"
