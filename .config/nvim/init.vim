@@ -43,6 +43,7 @@ set updatetime=100
 set guicursor=i:block
 set clipboard=unnamedplus
 set completeopt=menuone,longest
+set noautoread
 
 " Theme
 colorscheme gruvbox
@@ -62,6 +63,7 @@ inoremap <silent><expr> <C-j> pumvisible() ? "\<Down>" : "<C-j>"
 inoremap <silent><expr> <C-k> pumvisible() ? "\<Up>" : "<C-k>"
 " save all buffers and close current tab
 map <silent><Leader>tq :wa<CR>:tabclose<CR>
+noremap <C-Z> :suspend<CR>:silent! checktime<CR>
 
 " Trailing spaces highlight
 highlight ExtraWhitespace ctermbg=160 guibg=#fb4934
