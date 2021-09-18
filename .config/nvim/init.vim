@@ -31,7 +31,6 @@ set mouse=a
 set colorcolumn=80
 set cursorline
 set smartindent
-set scrolloff=20
 set noswapfile
 set incsearch
 set hidden
